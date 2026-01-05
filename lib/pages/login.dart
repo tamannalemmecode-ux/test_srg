@@ -42,6 +42,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+<<<<<<< HEAD
   String? validateEmail(String value) {
     if (value.isEmpty) return "Email address is required";
     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
@@ -137,12 +138,16 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _handleGoogleSignIn() async {
     final colorScheme = Theme.of(context).colorScheme;
+=======
+  Future<void> _handleGoogleSignIn() async {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     try {
       await _googleSignIn.signIn();
       if (rememberMe) {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setBool("isLoggedIn", true);
       }
+<<<<<<< HEAD
       _showCustomSnackbar("Success", "Signed in with Google", false);
       Future.delayed(const Duration(seconds: 2), () {
         Get.offAll(() => HomePage());
@@ -169,21 +174,50 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     await loginCtrl.login(email, password);
+=======
+      Get.snackbar("Success", "Signed in with Google 🎉",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green.shade100);
+      Get.offAll(() => HomePage());
+    } catch (error) {
+      Get.snackbar("Error", "Google Sign-In Failed ❌",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade100);
+    }
+  }
+
+  // lib/pages/login.dart
+
+  Future<void> _login() async {
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+    if (email.isEmpty || password.isEmpty) {
+      Get.snackbar("Error", "Please enter Email & Password");
+      return;
+    }
+    await loginCtrl.login(email, password); // ✅ Navigation handled inside
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   }
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
       backgroundColor: colorScheme.background,
+=======
+    return Scaffold(
+      backgroundColor: Colors.white,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       body: Center(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 6.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+<<<<<<< HEAD
               SizedBox(height: 8.h),
 
               Image.asset("assets/images/logo.jpg", height: 9.h),
@@ -338,11 +372,60 @@ class _LoginPageState extends State<LoginPage> {
 
               SizedBox(height: 2.5.h),
 
+=======
+              Image.asset("assets/images/logo.jpg", height: 20.h),
+              SizedBox(height: 3.h),
+              Text("Welcome Back",
+                  style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold)),
+              SizedBox(height: 1.h),
+              Text("Sign in to your account",
+                  style: TextStyle(color: Colors.grey, fontSize: 13.sp)),
+
+              SizedBox(height: 4.h),
+
+              // Email
+              TextField(
+                controller: emailController,
+                decoration: const InputDecoration(
+                  labelText: "Email Address",
+                  hintText: "Enter your email",
+                  prefixIcon: Icon(Icons.email_outlined),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                ),
+              ),
+              SizedBox(height: 2.h),
+
+              // Password
+              TextField(
+                controller: passwordController,
+                obscureText: !isPasswordVisible,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  hintText: "Enter your password",
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  suffixIcon: IconButton(
+                    icon: Icon(isPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off),
+                    onPressed: () =>
+                        setState(() => isPasswordVisible = !isPasswordVisible),
+                  ),
+                  border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                ),
+              ),
+
+              SizedBox(height: 1.5.h),
+
+              // Remember Me + Forgot
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
+<<<<<<< HEAD
                       SizedBox(
                         height: 2.4.h,
                         width: 5.5.w,
@@ -364,12 +447,21 @@ class _LoginPageState extends State<LoginPage> {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
+=======
+                      Checkbox(
+                        value: rememberMe,
+                        onChanged: (value) =>
+                            setState(() => rememberMe = value ?? false),
+                      ),
+                      Text("Remember me", style: TextStyle(fontSize: 12.sp)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                     ],
                   ),
                   TextButton(
                     onPressed: () {
                       Get.to(() => const ForgotPasswordPage());
                     },
+<<<<<<< HEAD
                     child: Text(
                       "Forgot Password?",
                       style: TextStyle(
@@ -378,10 +470,15 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
+=======
+                    child: Text("Forgot Password?",
+                        style: TextStyle(fontSize: 12.sp)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   ),
                 ],
               ),
 
+<<<<<<< HEAD
               SizedBox(height: 4.h),
 
               Obx(() => SizedBox(
@@ -438,12 +535,58 @@ class _LoginPageState extends State<LoginPage> {
 
               SizedBox(height: 3.h),
 
+=======
+              SizedBox(height: 2.h),
+
+              // Sign In Button
+              Obx(() => SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed:
+                  loginCtrl.isLoading.value ? null : () => _login(),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    padding: EdgeInsets.symmetric(vertical: 1.8.h),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                  ),
+                  child: loginCtrl.isLoading.value
+                      ? const CircularProgressIndicator(
+                    color: Colors.white,
+                  )
+                      : Text("Sign In",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14.sp)),
+                ),
+              )),
+
+              SizedBox(height: 2.h),
+
+              // Divider
+              Row(
+                children: [
+                  const Expanded(child: Divider()),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 2.w),
+                    child: Text("or", style: TextStyle(fontSize: 12.sp)),
+                  ),
+                  const Expanded(child: Divider()),
+                ],
+              ),
+
+              SizedBox(height: 2.h),
+
+              // Google Sign-In
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton.icon(
                   onPressed: _handleGoogleSignIn,
                   icon: Image.network(
                     "https://cdn-icons-png.flaticon.com/512/300/300221.png",
+<<<<<<< HEAD
                     height: 2.3.h,
                   ),
                   label: Text(
@@ -458,10 +601,21 @@ class _LoginPageState extends State<LoginPage> {
                     padding: EdgeInsets.symmetric(vertical: 2.h),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     side: BorderSide(color: colorScheme.outline, width: 1.2),
+=======
+                    height: 2.5.h,
+                  ),
+                  label: Text("Continue with Google",
+                      style: TextStyle(fontSize: 13.sp)),
+                  style: OutlinedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(vertical: 1.8.h),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   ),
                 ),
               ),
 
+<<<<<<< HEAD
               SizedBox(height: 4.h),
 
               Row(
@@ -475,6 +629,16 @@ class _LoginPageState extends State<LoginPage> {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
+=======
+              SizedBox(height: 3.h),
+
+              // Signup
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Don’t have an account? ",
+                      style: TextStyle(fontSize: 12.sp)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   GestureDetector(
                     onTap: () {
                       Get.to(() => const RegisterPage());
@@ -482,21 +646,31 @@ class _LoginPageState extends State<LoginPage> {
                     child: Text(
                       "Sign up now",
                       style: TextStyle(
+<<<<<<< HEAD
                         color: colorScheme.primary,
                         fontWeight: FontWeight.w700,
                         fontSize: 13.5.sp,
+=======
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12.sp,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                       ),
                     ),
                   ),
                 ],
               ),
+<<<<<<< HEAD
               SizedBox(height: 4.h),
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             ],
           ),
         ),
       ),
     );
   }
+<<<<<<< HEAD
 
   @override
   void dispose() {
@@ -505,3 +679,6 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 }
+=======
+}
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38

@@ -31,6 +31,7 @@ class NotificationsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -44,11 +45,20 @@ class NotificationsPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.delete_forever, color: colorScheme.error),
+=======
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Notifications"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete_forever),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             tooltip: "Clear all",
             onPressed: () async {
               final confirm = await showDialog<bool>(
                 context: context,
                 builder: (_) => AlertDialog(
+<<<<<<< HEAD
                   backgroundColor: colorScheme.surface,
                   title: Text(
                     "Clear all notifications?",
@@ -66,6 +76,17 @@ class NotificationsPage extends StatelessWidget {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(backgroundColor: colorScheme.error),
                       child: Text("Clear All", style: TextStyle(color: colorScheme.onError)),
+=======
+                  title: const Text("Clear all notifications?"),
+                  content: const Text("This action cannot be undone."),
+                  actions: [
+                    TextButton(
+                      child: const Text("Cancel"),
+                      onPressed: () => Navigator.pop(context, false),
+                    ),
+                    ElevatedButton(
+                      child: const Text("Clear All"),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                       onPressed: () => Navigator.pop(context, true),
                     ),
                   ],
@@ -78,6 +99,7 @@ class NotificationsPage extends StatelessWidget {
       ),
       body: Obx(() {
         if (controller.notifications.isEmpty) {
+<<<<<<< HEAD
           return Center(
             child: Text(
               "No notifications yet 🙂",
@@ -86,6 +108,12 @@ class NotificationsPage extends StatelessWidget {
                 fontWeight: FontWeight.w500,
                 color: colorScheme.onSurface.withOpacity(0.6),
               ),
+=======
+          return const Center(
+            child: Text(
+              "No notifications yet 🙂",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             ),
           );
         }
@@ -98,6 +126,7 @@ class NotificationsPage extends StatelessWidget {
               key: ValueKey(notif.id),
               direction: DismissDirection.endToStart,
               background: Container(
+<<<<<<< HEAD
                 color: colorScheme.error,
                 alignment: Alignment.centerRight,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -106,27 +135,53 @@ class NotificationsPage extends StatelessWidget {
               onDismissed: (_) => controller.removeNotification(notif.id),
               child: Card(
                 color: colorScheme.surface,
+=======
+                color: Colors.red,
+                alignment: Alignment.centerRight,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: const Icon(Icons.delete, color: Colors.white),
+              ),
+              onDismissed: (_) => controller.removeNotification(notif.id),
+              child: Card(
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: ListTile(
                   leading: CircleAvatar(
+<<<<<<< HEAD
                     backgroundColor: colorScheme.primary.withOpacity(0.1),
                     child: Icon(_getIconForNotif(notif), color: colorScheme.primary),
                   ),
                   title: Text(
                     notif.title,
                     style: TextStyle(fontWeight: FontWeight.bold, color: colorScheme.onSurface),
+=======
+                    backgroundColor: Colors.blue.shade100,
+                    child: Icon(_getIconForNotif(notif), color: Colors.blue),
+                  ),
+                  title: Text(
+                    notif.title,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+<<<<<<< HEAD
                       Text(notif.body, style: TextStyle(color: colorScheme.onSurface.withOpacity(0.9))),
                       const SizedBox(height: 4),
                       Text(
                         _formatTime(notif.timestamp),
                         style: TextStyle(fontSize: 12, color: colorScheme.onSurface.withOpacity(0.6)),
+=======
+                      Text(notif.body),
+                      const SizedBox(height: 4),
+                      Text(
+                        _formatTime(notif.timestamp),
+                        style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                       ),
                     ],
                   ),
@@ -139,8 +194,11 @@ class NotificationsPage extends StatelessWidget {
                         "Notification tapped",
                         "Opening booking $bookingId",
                         snackPosition: SnackPosition.BOTTOM,
+<<<<<<< HEAD
                         backgroundColor: colorScheme.primary.withOpacity(0.1),
                         colorText: colorScheme.primary,
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                       );
 
                       try {
@@ -167,4 +225,8 @@ class NotificationsPage extends StatelessWidget {
       }),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38

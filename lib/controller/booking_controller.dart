@@ -1,11 +1,22 @@
+<<<<<<< HEAD
 // lib/controller/booking_controller.dart
+=======
+// lib/controller/booking_controller.dart - COMPLETE FIXED VERSION
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+<<<<<<< HEAD
 import '../api/api_service.dart';
 import '../controller/user_controller.dart';
 import '../models/booking_model.dart';
+=======
+import 'package:new_suvarnraj_group/api/api_service.dart';
+import 'package:new_suvarnraj_group/controller/user_controller.dart';
+import 'package:new_suvarnraj_group/models/booking_model.dart';
+import 'package:table_calendar/table_calendar.dart';
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
 class BookingController extends GetxController {
   final RxList<BookingModel> bookings = <BookingModel>[].obs;
@@ -13,6 +24,12 @@ class BookingController extends GetxController {
   final RxString errorMessage = ''.obs;
   bool _isFetching = false;
 
+<<<<<<< HEAD
+=======
+  // ✅ FOR CALENDAR FULL DATE CHECK
+  final Set<DateTime> _fullDates = <DateTime>{}.obs;
+
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   late UserController userCtrl;
 
   @override
@@ -33,7 +50,21 @@ class BookingController extends GetxController {
     });
   }
 
+<<<<<<< HEAD
   /// ✅ FETCH BOOKINGS FROM API
+=======
+  /// ✅ CHECK IF DATE IS FULL (FOR CALENDAR)
+  bool isDateFull(DateTime date) {
+    return _fullDates.any((d) => isSameDay(d, date));
+  }
+
+  /// ✅ MARK DATE AS FULL (CALL WHEN NEEDED)
+  void markDateAsFull(DateTime date) {
+    _fullDates.add(date);
+  }
+
+  /// ✅ FETCH BOOKINGS FROM API - FULLY FIXED
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   Future<void> fetchBookings() async {
     if (_isFetching) {
       if (kDebugMode) print("⚠️ Already fetching bookings, skipping...");
@@ -65,6 +96,7 @@ class BookingController extends GetxController {
         print("   Data Type: ${response['data'].runtimeType}");
       }
 
+<<<<<<< HEAD
       // ✅ Handle both LIST and MAP responses
       List<dynamic> bookingList = [];
 
@@ -87,6 +119,42 @@ class BookingController extends GetxController {
         } else if (dataMap.containsKey('data')) {
           bookingList = dataMap['data'] as List<dynamic>;
           if (kDebugMode) print("   Found nested 'data' key");
+=======
+      // ✅ HANDLE BOTH LIST AND MAP RESPONSES
+      List<dynamic> bookingList = [];
+
+      if (response['data'] == null) {
+        // No data key at all
+        bookingList = [];
+        if (kDebugMode) print("⚠️ No 'data' key in response");
+      } else if (response['data'] is List) {
+        // ✅ Case 1: data is directly a List
+        bookingList = response['data'] as List<dynamic>;
+        if (kDebugMode) print("✅ Data is a List with ${bookingList.length} items");
+      } else if (response['data'] is Map) {
+        // ✅ Case 2: data is a Map containing a list
+        final dataMap = response['data'] as Map<String, dynamic>;
+        if (kDebugMode) print("✅ Data is a Map with keys: ${dataMap.keys.toList()}");
+
+        if (dataMap.containsKey('bookings')) {
+          bookingList = dataMap['bookings'] as List<dynamic>;
+          if (kDebugMode) print("   Found 'bookings' key");
+        } else if (dataMap.containsKey('orders')) {
+          bookingList = dataMap['orders'] as List<dynamic>;
+          if (kDebugMode) print("   Found 'orders' key");
+        } else if (dataMap.containsKey('data')) {
+          bookingList = dataMap['data'] as List<dynamic>;
+          if (kDebugMode) print("   Found nested 'data' key");
+        } else {
+          // Try to find any key that contains a list
+          for (var entry in dataMap.entries) {
+            if (entry.value is List) {
+              bookingList = entry.value as List<dynamic>;
+              if (kDebugMode) print("   Found list in key: '${entry.key}'");
+              break;
+            }
+          }
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         }
       }
 
@@ -120,6 +188,10 @@ class BookingController extends GetxController {
         print("   Error type: ${e.runtimeType}");
       }
 
+<<<<<<< HEAD
+=======
+      // ✅ FIXED: Only show snackbar if one isn't already open
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       if (!Get.isSnackbarOpen) {
         Get.snackbar(
           "Error",
@@ -184,12 +256,75 @@ class BookingController extends GetxController {
     }
   }
 
+<<<<<<< HEAD
+=======
+  /// ✅ RESCHEDULE BOOKING
+  Future<bool> rescheduleBooking(int orderId, DateTime newDateTime) async {
+    try {
+      isLoading.value = true;
+      final token = userCtrl.token.value;
+      if (token.isEmpty) throw Exception("Authentication required");
+
+      if (kDebugMode) print("📅 Rescheduling booking ID: $orderId to $newDateTime");
+
+      await ApiService.rescheduleOrder(
+        orderId: orderId,
+        newDateTime: newDateTime,
+        token: token,
+      );
+
+      final index = bookings.indexWhere((b) => b.id == orderId);
+      if (index != -1) {
+        bookings[index].dateTime = newDateTime;
+        bookings.refresh();
+      }
+
+      if (!Get.isSnackbarOpen) {
+        Get.snackbar(
+          "Success",
+          "Booking rescheduled successfully",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.green.shade100,
+          colorText: Colors.green.shade900,
+          duration: const Duration(seconds: 2),
+          margin: const EdgeInsets.all(10),
+        );
+      }
+
+      if (kDebugMode) print("✅ Booking rescheduled: $orderId");
+      return true;
+    } catch (e) {
+      final errorMsg = e.toString().replaceAll('Exception: ', '');
+      if (kDebugMode) print("❌ Reschedule error: $e");
+
+      if (!Get.isSnackbarOpen) {
+        Get.snackbar(
+          "Error",
+          errorMsg.isEmpty ? "Failed to reschedule booking" : errorMsg,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade100,
+          colorText: Colors.red.shade900,
+          duration: const Duration(seconds: 3),
+          margin: const EdgeInsets.all(10),
+        );
+      }
+      return false;
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   /// ✅ CLEAR DATA
   void clearData() {
     bookings.clear();
     errorMessage.value = '';
     isLoading.value = false;
     _isFetching = false;
+<<<<<<< HEAD
+=======
+    _fullDates.clear();
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     if (kDebugMode) print("🧹 Booking data cleared");
   }
 
@@ -209,6 +344,7 @@ class BookingController extends GetxController {
     await fetchBookings();
   }
 
+<<<<<<< HEAD
   // ✅ GETTERS (Fixed to match exact status strings)
   int get totalBookings => bookings.length;
 
@@ -220,10 +356,25 @@ class BookingController extends GetxController {
 
   int get cancelledCount =>
       bookings.where((b) => b.status == "Cancelled").length;
+=======
+  // ✅ GETTERS FOR STATS
+  int get totalBookings => bookings.length;
+
+  int get upcomingCount =>
+      bookings.where((b) => b.status.toLowerCase() == 'confirmed' ||
+          b.status.toLowerCase() == 'pending').length;
+
+  int get completedCount =>
+      bookings.where((b) => b.status.toLowerCase() == 'completed').length;
+
+  int get cancelledCount =>
+      bookings.where((b) => b.status.toLowerCase() == 'cancelled').length;
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
   double get totalRevenue =>
       bookings.fold(0.0, (sum, b) => sum + b.price);
 
+<<<<<<< HEAD
   bool get hasBookings => bookings.isNotEmpty;
   bool get hasError => errorMessage.value.isNotEmpty;
 
@@ -235,4 +386,21 @@ class BookingController extends GetxController {
 
   List<BookingModel> get cancelledBookings =>
       bookings.where((b) => b.status == "Cancelled").toList();
+=======
+  List<BookingModel> get upcomingBookings =>
+      bookings.where((b) => b.status.toLowerCase() == 'confirmed' ||
+          b.status.toLowerCase() == 'pending').toList();
+
+  List<BookingModel> get completedBookings =>
+      bookings.where((b) => b.status.toLowerCase() == 'completed').toList();
+
+  List<BookingModel> get cancelledBookings =>
+      bookings.where((b) => b.status.toLowerCase() == 'cancelled').toList();
+
+  /// ✅ CHECK IF HAS BOOKINGS
+  bool get hasBookings => bookings.isNotEmpty;
+
+  /// ✅ CHECK IF HAS ERROR
+  bool get hasError => errorMessage.value.isNotEmpty;
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 }

@@ -1,14 +1,23 @@
+<<<<<<< HEAD
 // lib/services/api_service.dart - FULLY CORRECTED FOR CITY & ADDRESS VALIDATION
+=======
+// lib/services/api_service.dart - COMPLETE WORKING VERSION (FINAL)
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+<<<<<<< HEAD
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:http/http.dart' as http;
 
 import '../controller/user_controller.dart';
 
+=======
+import 'package:http/http.dart' as http;
+
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 class ApiService {
   static const String baseUrl = "https://portfolio2.lemmecode.in/api/v1";
   static const Duration defaultTimeout = Duration(seconds: 15);
@@ -261,6 +270,10 @@ class ApiService {
       throw _handleError(e);
     }
   }
+<<<<<<< HEAD
+=======
+// ✅ FIXED: lib/services/api_service.dart - updatePassword Method
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
   static Future<Map<String, dynamic>> updatePassword({
     required String currentPassword,
@@ -270,6 +283,7 @@ class ApiService {
   }) async {
     try {
       _log('Updating password...');
+<<<<<<< HEAD
       final url = Uri.parse(_buildUrl('/change-password'));
 
       final body = jsonEncode({
@@ -278,6 +292,22 @@ class ApiService {
         'new_password_confirmation': confirmPassword,
       });
 
+=======
+      _log('Current Password Length: ${currentPassword.length}');
+      _log('New Password Length: ${newPassword.length}');
+
+      final url = Uri.parse(_buildUrl('/change-password'));
+
+      // ✅ FIXED: Use correct field names that match Laravel backend
+      final body = jsonEncode({
+        'old_password': currentPassword,        // ✅ Changed from 'current_password'
+        'new_password': newPassword,            // ✅ Kept same
+        'new_password_confirmation': confirmPassword,  // ✅ Changed from 'confirm_password'
+      });
+
+      _log('Password Update Request Body: $body');
+
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       final response = await http.post(
         url,
         headers: {
@@ -290,12 +320,24 @@ class ApiService {
         throw Exception('Connection timeout. Please check your internet.');
       });
 
+<<<<<<< HEAD
       return _parseResponse(response, 'updatePassword');
     } catch (e) {
       throw _handleError(e);
     }
   }
 
+=======
+      _log('Password Update Response Status: ${response.statusCode}');
+      _log('Password Update Response Body: ${response.body}');
+
+      return _parseResponse(response, 'updatePassword');
+    } catch (e) {
+      _log('❌ Password Update Error: $e');
+      throw _handleError(e);
+    }
+  }
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   // ============================================
   // HOME & GENERAL ENDPOINTS
   // ============================================
@@ -404,7 +446,13 @@ class ApiService {
         throw Exception('Connection timeout. Please check your internet.');
       });
 
+<<<<<<< HEAD
       return _parseResponse(response, 'searchProducts');
+=======
+      final data = _parseResponse(response, 'searchProducts');
+      _log('Search returned ${(data['data']?['products'] as List?)?.length ?? 0} results');
+      return data;
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     } catch (e) {
       throw _handleError(e);
     }
@@ -497,16 +545,32 @@ class ApiService {
   // ============================================
   // CART ENDPOINTS
   // ============================================
+<<<<<<< HEAD
+=======
+// ✅ Replace these cart methods in api_service.dart
+
+// ============================================
+// CART ENDPOINTS - FIXED
+// ============================================
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
   static Future<Map<String, dynamic>> getCart(String token) async {
     try {
       _log('Fetching cart items...');
+<<<<<<< HEAD
+=======
+      _log('Token: ${token.substring(0, 20)}...'); // Log token prefix
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
       if (token.isEmpty) {
         throw Exception('Authentication required');
       }
 
       final url = Uri.parse(_buildUrl('/cart'));
+<<<<<<< HEAD
+=======
+      _log('Cart URL: $url');
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
       final response = await http.get(
         url,
@@ -519,6 +583,12 @@ class ApiService {
         throw Exception('Connection timeout. Please check your internet.');
       });
 
+<<<<<<< HEAD
+=======
+      _log('Cart Response Status: ${response.statusCode}');
+      _log('Cart Response Body: ${response.body}');
+
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       return _parseResponse(response, 'getCart');
     } catch (e) {
       throw _handleError(e);
@@ -532,6 +602,10 @@ class ApiService {
   }) async {
     try {
       _log('Adding product $productId to cart (qty: $quantity)...');
+<<<<<<< HEAD
+=======
+      _log('Token: ${token.substring(0, 20)}...'); // Log token prefix
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
       if (token.isEmpty) {
         throw Exception('Authentication required');
@@ -552,6 +626,13 @@ class ApiService {
         'quantity': quantity,
       });
 
+<<<<<<< HEAD
+=======
+      _log('Add Cart URL: $url');
+      _log('Add Cart Body: $body');
+      _log('Add Cart Headers: Authorization: Bearer ${token.substring(0, 20)}...');
+
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       final response = await http.post(
         url,
         headers: {
@@ -567,6 +648,7 @@ class ApiService {
         },
       );
 
+<<<<<<< HEAD
       if (response.statusCode == 409) {
         throw Exception('Product already in cart');
       }
@@ -618,6 +700,14 @@ class ApiService {
 
       return _parseResponse(response, 'updateCartQuantity');
     } catch (e) {
+=======
+      _log('Add Cart Response Status: ${response.statusCode}');
+      _log('Add Cart Response Body: ${response.body}');
+
+      return _parseResponse(response, 'addToCart');
+    } catch (e) {
+      _log('❌ Error in addToCart: $e');
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       throw _handleError(e);
     }
   }
@@ -633,16 +723,25 @@ class ApiService {
         throw Exception('Authentication required');
       }
 
+<<<<<<< HEAD
       if (rowId.isEmpty) {
         throw Exception('Invalid cart item');
       }
 
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       final url = Uri.parse(_buildUrl('/cart/remove'));
 
       final body = jsonEncode({
         'row_id': rowId,
       });
 
+<<<<<<< HEAD
+=======
+      _log('Remove Cart URL: $url');
+      _log('Remove Cart Body: $body');
+
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       final response = await http.delete(
         url,
         headers: {
@@ -655,9 +754,13 @@ class ApiService {
         throw Exception('Connection timeout. Please check your internet.');
       });
 
+<<<<<<< HEAD
       if (response.statusCode == 404) {
         return {'success': true, 'message': 'Item removed or cart was empty'};
       }
+=======
+      _log('Remove Cart Response: ${response.statusCode}');
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
       return _parseResponse(response, 'removeFromCart');
     } catch (e) {
@@ -691,7 +794,10 @@ class ApiService {
       throw _handleError(e);
     }
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   // ============================================
   // WISHLIST ENDPOINTS
   // ============================================
@@ -898,7 +1004,13 @@ class ApiService {
         throw Exception('Connection timeout. Please check your internet.');
       });
 
+<<<<<<< HEAD
       return _parseResponse(response, 'fetchBookings');
+=======
+      final data = _parseResponse(response, 'fetchBookings');
+      _log('Successfully fetched ${(data['data'] as List?)?.length ?? 0} bookings');
+      return data;
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     } catch (e) {
       throw _handleError(e);
     }
@@ -948,6 +1060,7 @@ class ApiService {
     }
   }
 
+<<<<<<< HEAD
 // ADD THESE METHODS TO YOUR EXISTING api_service.dart FILE
 // Place them in the PRODUCT ENDPOINTS section or create a new FLAT ENDPOINTS section
 
@@ -962,23 +1075,51 @@ class ApiService {
       final url = Uri.parse(_buildUrl('/furnished-flats'));
 
       final response = await http.get(
+=======
+  static Future<Map<String, dynamic>> rescheduleOrder({
+    required int orderId,
+    required DateTime newDateTime,
+    required String token,
+  }) async {
+    try {
+      _log('Rescheduling order ID: $orderId');
+      final url = Uri.parse(_buildUrl('/orders/$orderId/reschedule'));
+
+      final body = jsonEncode({
+        'booking_date': newDateTime.toIso8601String().split('T')[0],
+        'booking_time': '${newDateTime.hour.toString().padLeft(2, '0')}:${newDateTime.minute.toString().padLeft(2, '0')}',
+      });
+
+      final response = await http.put(
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         url,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+<<<<<<< HEAD
         },
+=======
+          'Authorization': 'Bearer $token',
+        },
+        body: body,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       ).timeout(defaultTimeout, onTimeout: () {
         throw Exception('Connection timeout. Please check your internet.');
       });
 
+<<<<<<< HEAD
       final data = _parseResponse(response, 'getFurnishedFlats');
       _log('Successfully fetched ${(data['data']?['products'] as List?)?.length ?? 0} furnished flats');
       return data;
+=======
+      return _parseResponse(response, 'rescheduleOrder');
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     } catch (e) {
       throw _handleError(e);
     }
   }
 
+<<<<<<< HEAD
   /// Fetch unfurnished flat products
   static Future<Map<String, dynamic>> getUnfurnishedFlats() async {
     try {
@@ -986,24 +1127,76 @@ class ApiService {
       final url = Uri.parse(_buildUrl('/unfurnished-flats'));
 
       final response = await http.get(
+=======
+  static Future<Map<String, dynamic>> placeOrderViaOrders({
+    required String token,
+    required String firstName,
+    required String lastName,
+    required String email,
+    required String mobile,
+    required String address,
+    required String city,
+    required String state,
+    required String zip,
+    required String bookingDate,
+    required String bookingTime,
+    required List<Map<String, dynamic>> items,
+    required String paymentType,
+  }) async {
+    try {
+      _log('Placing order via /orders...');
+      final url = Uri.parse(_buildUrl('/orders'));
+
+      final body = jsonEncode({
+        "first_name": firstName,
+        "last_name": lastName,
+        "email": email,
+        "mobile": mobile,
+        "phone": mobile,
+        "address": address,
+        "city": city,
+        "state": state,
+        "zip": zip,
+        "booking_date": bookingDate,
+        "booking_time": bookingTime,
+        "items": items,
+        "payment_type": paymentType,
+      });
+
+      _log('Request URL: $url');
+      _log('Request Body: $body');
+
+      final response = await http.post(
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         url,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
+<<<<<<< HEAD
         },
+=======
+          'Authorization': 'Bearer $token',
+        },
+        body: body,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       ).timeout(defaultTimeout, onTimeout: () {
         throw Exception('Connection timeout. Please check your internet.');
       });
 
+<<<<<<< HEAD
       final data = _parseResponse(response, 'getUnfurnishedFlats');
       _log('Successfully fetched ${(data['data']?['products'] as List?)?.length ?? 0} unfurnished flats');
       return data;
+=======
+      return _parseResponse(response, 'placeOrderViaOrders');
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     } catch (e) {
       throw _handleError(e);
     }
   }
 
   // ============================================
+<<<<<<< HEAD
   // 🔥 CORRECT ORDER PLACEMENT ENDPOINTS
   // ============================================
 
@@ -1011,6 +1204,15 @@ class ApiService {
   static Future<Map<String, dynamic>> fetchCheckoutData({String? token}) async {
     try {
       _log('📡 Fetching checkout data...');
+=======
+  // 🔥 CHECKOUT ENDPOINTS (GUEST & LOGGED-IN)
+  // ============================================
+
+  /// ✅ Fetch Checkout Data (Cities List)
+  static Future<Map<String, dynamic>> fetchCheckoutData({String? token}) async {
+    try {
+      _log('Fetching checkout data...');
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       final url = Uri.parse(_buildUrl('/checkout/data'));
 
       final headers = {
@@ -1029,14 +1231,20 @@ class ApiService {
         throw Exception('Connection timeout. Please check your internet.');
       });
 
+<<<<<<< HEAD
       _log('✅ Checkout data response status: ${response.statusCode}');
       return _parseResponse(response, 'fetchCheckoutData');
     } catch (e) {
       _log('❌ Checkout data error: $e');
+=======
+      return _parseResponse(response, 'fetchCheckoutData');
+    } catch (e) {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       throw _handleError(e);
     }
   }
 
+<<<<<<< HEAD
   /// ✅ Place order for LOGGED-IN users - CORRECT ENDPOINT & STRUCTURE
   static Future<Map<String, dynamic>> placeOrder({
     required String token,
@@ -1103,6 +1311,9 @@ class ApiService {
   }
 
   /// ✅ Place order for GUEST users
+=======
+  /// ✅ Place Guest Order - WITH CITY ID
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   static Future<Map<String, dynamic>> placeGuestOrder({
     required String firstName,
     required String lastName,
@@ -1111,6 +1322,7 @@ class ApiService {
     required String address,
     String? apartment,
     required String state,
+<<<<<<< HEAD
     required int cityId,
     required String cityName,
     required String zip,
@@ -1122,6 +1334,20 @@ class ApiService {
   }) async {
     try {
       _log('📡 Placing guest order...');
+=======
+    required int cityId, // ✅ CITY ID (NOT NAME)
+    required String zip,
+    String? notes,
+    int countryId = 1,
+    required String bookingDate,
+    required String bookingTime,
+    String bookingType = "standard",
+    String paymentMethod = "cod",
+    required List<Map<String, dynamic>> items,
+  }) async {
+    try {
+      _log('Placing guest order...');
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       final url = Uri.parse(_buildUrl('/checkout/guest'));
 
       final body = jsonEncode({
@@ -1131,6 +1357,7 @@ class ApiService {
         "mobile": mobile,
         "phone": mobile,
         "address": address,
+<<<<<<< HEAD
         "apartment": apartment,
         "state": state,
         "city": cityName,      // ✅ REQUIRED STRING
@@ -1145,6 +1372,22 @@ class ApiService {
       });
 
       _log('✅ Guest Order Payload: $body');
+=======
+        if (apartment != null && apartment.isNotEmpty) "apartment": apartment,
+        "state": state,
+        "city_id": cityId, // ✅ SEND CITY ID
+        "zip": zip,
+        if (notes != null && notes.isNotEmpty) "notes": notes,
+        "country_id": countryId,
+        "booking_date": bookingDate,
+        "booking_time": bookingTime,
+        "booking_type": bookingType,
+        "payment_method": paymentMethod,
+        "items": items,
+      });
+
+      _log('Guest Order Request Body: $body');
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
       final response = await http.post(
         url,
@@ -1157,6 +1400,7 @@ class ApiService {
         throw Exception('Connection timeout. Please check your internet.');
       });
 
+<<<<<<< HEAD
       _log('📊 Guest Order Response Status: ${response.statusCode}');
       return _parseResponse(response, 'placeGuestOrder');
     } catch (e) {
@@ -1164,4 +1408,24 @@ class ApiService {
       throw _handleError(e);
     }
   }
+=======
+      return _parseResponse(response, 'placeGuestOrder');
+    } catch (e) {
+      throw _handleError(e);
+    }
+  }
+
+  /// ✅ Helper: Find City ID by Name
+  static int? findCityIdByName(List<dynamic> cities, String cityName) {
+    try {
+      final city = cities.firstWhere(
+            (c) => (c['name'] as String).toLowerCase() == cityName.toLowerCase(),
+        orElse: () => null,
+      );
+      return city?['id'];
+    } catch (e) {
+      return null;
+    }
+  }
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 }

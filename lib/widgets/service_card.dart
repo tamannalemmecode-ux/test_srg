@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // lib/widgets/service_card.dart
+=======
+// ✅ lib/widgets/service_card.dart - COMPLETE FIXED VERSION
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -31,7 +35,10 @@ class ServiceCard extends StatelessWidget {
     if (imageUrl!.startsWith('http://') || imageUrl!.startsWith('https://')) {
       return imageUrl;
     }
+<<<<<<< HEAD
     // ✅ FIXED: Removed trailing space in baseUrl
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     const baseUrl = 'https://portfolio2.lemmecode.in';
     return '$baseUrl$imageUrl';
   }
@@ -63,7 +70,10 @@ class ServiceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final colorScheme = Theme.of(context).colorScheme;
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     final priceNum = _parseDouble(price);
     final priceStr = priceNum.toStringAsFixed(0);
     final hasDiscount = comparePrice != null && _parseDouble(comparePrice) > priceNum;
@@ -72,6 +82,7 @@ class ServiceCard extends StatelessWidget {
     final productId = serviceData['id'];
 
     return GestureDetector(
+<<<<<<< HEAD
       onTap: () => _showProductDetailsModal(context, colorScheme),
       child: Container(
         decoration: BoxDecoration(
@@ -80,6 +91,16 @@ class ServiceCard extends StatelessWidget {
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.12),
+=======
+      onTap: () => _showProductDetailsModal(context),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(3.w),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.12),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               spreadRadius: 1,
               blurRadius: 10,
               offset: const Offset(0, 4),
@@ -94,12 +115,20 @@ class ServiceCard extends StatelessWidget {
               flex: 6,
               child: Stack(
                 children: [
+<<<<<<< HEAD
                   _buildImageSection(fullImageUrl, hasDiscount, discountPercent, colorScheme),
+=======
+                  _buildImageSection(fullImageUrl, hasDiscount, discountPercent),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   if (productId != null && productId != 0)
                     Positioned(
                       top: 2.w,
                       right: 2.w,
+<<<<<<< HEAD
                       child: _buildWishlistButton(productId, colorScheme),
+=======
+                      child: _buildWishlistButton(productId),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                     ),
                 ],
               ),
@@ -110,17 +139,30 @@ class ServiceCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+<<<<<<< HEAD
                   _buildTitle(colorScheme),
                   SizedBox(height: 1.5.w),
                   _buildPriceSection(priceStr, hasDiscount, colorScheme),
+=======
+                  _buildTitle(),
+                  SizedBox(height: 1.5.w),
+                  _buildPriceSection(priceStr, hasDiscount),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   SizedBox(height: 2.5.w),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
+<<<<<<< HEAD
                       onPressed: () => _showProductDetailsModal(context, colorScheme),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: colorScheme.primary,
                         foregroundColor: colorScheme.onPrimary,
+=======
+                      onPressed: () => _showProductDetailsModal(context),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[600],
+                        foregroundColor: Colors.white,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                         padding: EdgeInsets.symmetric(vertical: 1.1.h),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(2.w),
@@ -130,7 +172,11 @@ class ServiceCard extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+<<<<<<< HEAD
                           Icon(Icons.visibility, size: 13.sp, color: colorScheme.onPrimary),
+=======
+                          Icon(Icons.visibility, size: 13.sp),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                           SizedBox(width: 2.w),
                           Text(
                             "View Details",
@@ -138,7 +184,10 @@ class ServiceCard extends StatelessWidget {
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w600,
                               letterSpacing: 0.3,
+<<<<<<< HEAD
                               color: colorScheme.onPrimary,
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                             ),
                           ),
                         ],
@@ -154,16 +203,29 @@ class ServiceCard extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildWishlistButton(int productId, ColorScheme colorScheme) {
+=======
+  // ✅ WISHLIST BUTTON
+  Widget _buildWishlistButton(int productId) {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     return GetBuilder<WishlistController>(
       builder: (wishlistCtrl) {
         final isInWishlist = wishlistCtrl.isItemInWishlist(productId);
         return GestureDetector(
+<<<<<<< HEAD
           onTap: () => _toggleWishlist(productId, colorScheme),
           child: Container(
             padding: EdgeInsets.all(2.w),
             decoration: BoxDecoration(
               color: colorScheme.surface,
+=======
+          onTap: () => _toggleWishlist(productId),
+          child: Container(
+            padding: EdgeInsets.all(2.w),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.95),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
@@ -175,7 +237,11 @@ class ServiceCard extends StatelessWidget {
             ),
             child: Icon(
               isInWishlist ? Icons.favorite : Icons.favorite_border,
+<<<<<<< HEAD
               color: isInWishlist ? colorScheme.error : colorScheme.onSurface.withOpacity(0.6),
+=======
+              color: isInWishlist ? Colors.red[600] : Colors.grey[600],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               size: 18.sp,
             ),
           ),
@@ -184,7 +250,12 @@ class ServiceCard extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   Future<void> _toggleWishlist(int productId, ColorScheme colorScheme) async {
+=======
+  // ✅ TOGGLE WISHLIST METHOD - THIS WAS MISSING!
+  Future<void> _toggleWishlist(int productId) async {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     try {
       final userCtrl = Get.find<UserController>();
       final wishlistCtrl = Get.find<WishlistController>();
@@ -193,15 +264,24 @@ class ServiceCard extends StatelessWidget {
         Get.snackbar(
           "Login Required",
           "Please log in to add items to wishlist",
+<<<<<<< HEAD
           backgroundColor: colorScheme.secondary.withOpacity(0.1),
           colorText: colorScheme.onSecondary,
+=======
+          backgroundColor: Colors.orange[600],
+          colorText: Colors.white,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           snackPosition: SnackPosition.BOTTOM,
           mainButton: TextButton(
             onPressed: () {
               Get.back();
               Get.to(() => const LoginPage());
             },
+<<<<<<< HEAD
             child: Text("Login", style: TextStyle(fontWeight: FontWeight.bold)),
+=======
+            child: const Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           ),
         );
         return;
@@ -217,23 +297,40 @@ class ServiceCard extends StatelessWidget {
       Get.snackbar(
         "Error",
         e.toString().replaceAll('Exception: ', ''),
+<<<<<<< HEAD
         backgroundColor: colorScheme.error.withOpacity(0.1),
         colorText: colorScheme.error,
+=======
+        backgroundColor: Colors.red[100],
+        colorText: Colors.red[900],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         snackPosition: SnackPosition.BOTTOM,
       );
     }
   }
 
+<<<<<<< HEAD
   Future<void> _onAddToCart(BuildContext context, ColorScheme colorScheme) async {
+=======
+// ✅ Replace _onAddToCart method in service_card.dart with this:
+
+  /// 🔥 ADD TO CART - FINAL FIXED VERSION (No Snackbar Errors)
+  Future<void> _onAddToCart() async {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     try {
       final userCtrl = Get.find<UserController>();
       final cartController = Get.find<CartController>();
 
+<<<<<<< HEAD
+=======
+      // CHECK LOGIN
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       if (!userCtrl.isLoggedIn.value || userCtrl.token.value.isEmpty) {
         Get.snackbar(
           "Login Required",
           "Please login to add items to cart",
           snackPosition: SnackPosition.BOTTOM,
+<<<<<<< HEAD
           backgroundColor: colorScheme.secondary.withOpacity(0.1),
           colorText: colorScheme.onSecondary,
           duration: const Duration(seconds: 3),
@@ -246,10 +343,18 @@ class ServiceCard extends StatelessWidget {
             },
             child: Text("Login", style: TextStyle(fontWeight: FontWeight.bold)),
           ),
+=======
+          backgroundColor: Colors.orange[600],
+          colorText: Colors.white,
+          duration: const Duration(seconds: 3),
+          margin: const EdgeInsets.all(12),
+          borderRadius: 8,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         );
         return;
       }
 
+<<<<<<< HEAD
       final productId = serviceData['id'];
       if (productId == null || productId == 0) {
         Get.snackbar(
@@ -258,10 +363,22 @@ class ServiceCard extends StatelessWidget {
           backgroundColor: colorScheme.error,
           colorText: colorScheme.onError,
           snackPosition: SnackPosition.BOTTOM,
+=======
+      // VALIDATE PRODUCT ID
+      final productId = serviceData['id'];
+      if (productId == null || productId == 0) {
+        Get.snackbar(
+            "Error",
+            "Invalid product",
+            backgroundColor: Colors.red[600],
+            colorText: Colors.white,
+            snackPosition: SnackPosition.BOTTOM
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         );
         return;
       }
 
+<<<<<<< HEAD
       await cartController.addToCart(serviceData, qty: 1);
 
       Get.snackbar(
@@ -306,11 +423,103 @@ class ServiceCard extends StatelessWidget {
           snackPosition: SnackPosition.BOTTOM,
           margin: const EdgeInsets.all(12),
           borderRadius: 8,
+=======
+      // 🔥 SHOW LOADING DIALOG
+      Get.dialog(
+        PopScope(
+          canPop: false,
+          child: Center(
+            child: Material(
+              color: Colors.transparent,
+              child: Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16)
+                ),
+                child: const Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircularProgressIndicator(color: Colors.blue),
+                    SizedBox(height: 16),
+                    Text("Adding to cart...", style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        barrierDismissible: false,
+      );
+
+      // 🔥 CALL API
+      print("🛒 Adding product ID: $productId to cart");
+      await cartController.addToCart(serviceData, qty: 1);
+
+      // CLOSE LOADING DIALOG
+      if (Get.isDialogOpen == true) {
+        Navigator.of(Get.overlayContext!).pop();
+      }
+
+      // 🔥 Wait for overlay to settle
+      await Future.delayed(const Duration(milliseconds: 300));
+
+      // 🔥 SUCCESS - Show simple snackbar
+      if (Get.context != null) {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                const Icon(Icons.check_circle, color: Colors.white),
+                const SizedBox(width: 12),
+                Expanded(child: Text("$title added to cart!")),
+                TextButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(Get.context!).hideCurrentSnackBar();
+                    Get.to(() => const CartPage());
+                  },
+                  child: const Text("VIEW CART", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                ),
+              ],
+            ),
+            backgroundColor: Colors.green[600],
+            duration: const Duration(seconds: 3),
+            behavior: SnackBarBehavior.floating,
+            margin: const EdgeInsets.all(12),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
+        );
+      }
+
+    } catch (e) {
+      // Close loading dialog if open
+      if (Get.isDialogOpen == true) {
+        Navigator.of(Get.overlayContext!).pop();
+      }
+
+      await Future.delayed(const Duration(milliseconds: 200));
+
+      String errorMessage = e.toString().replaceAll('Exception: ', '');
+      print("❌ Add to cart error: $errorMessage");
+
+      if (Get.context != null) {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: Text("Error: $errorMessage"),
+            backgroundColor: Colors.red[600],
+            duration: const Duration(seconds: 3),
+            behavior: SnackBarBehavior.floating,
+          ),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         );
       }
     }
   }
 
+<<<<<<< HEAD
+=======
+  // ✅ PARSE DESCRIPTION TO POINTS
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   List<String> _parseDescriptionToPoints(String htmlString) {
     if (htmlString.isEmpty) return [];
     String cleaned = htmlString.replaceAll(RegExp(r'<[^>]*>'), '');
@@ -345,7 +554,12 @@ class ServiceCard extends StatelessWidget {
     return points;
   }
 
+<<<<<<< HEAD
   void _showProductDetailsModal(BuildContext context, ColorScheme colorScheme) {
+=======
+  // ✅ PRODUCT DETAILS MODAL
+  void _showProductDetailsModal(BuildContext context) {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     final priceNum = _parseDouble(price);
     final priceStr = priceNum.toStringAsFixed(0);
     final hasDiscount = comparePrice != null && _parseDouble(comparePrice) > priceNum;
@@ -365,9 +579,15 @@ class ServiceCard extends StatelessWidget {
         minChildSize: 0.5,
         maxChildSize: 0.95,
         builder: (_, controller) => Container(
+<<<<<<< HEAD
           decoration: BoxDecoration(
             color: colorScheme.surface,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(25)),
+=======
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           ),
           child: Column(
             children: [
@@ -375,7 +595,11 @@ class ServiceCard extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 width: 40,
                 height: 4,
+<<<<<<< HEAD
                 decoration: BoxDecoration(color: colorScheme.outlineVariant, borderRadius: BorderRadius.circular(2)),
+=======
+                decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(2)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               ),
               Expanded(
                 child: ListView(
@@ -390,6 +614,7 @@ class ServiceCard extends StatelessWidget {
                         height: 300,
                         width: double.infinity,
                         fit: BoxFit.cover,
+<<<<<<< HEAD
                         placeholder: (_, __) => Container(
                           height: 300,
                           color: colorScheme.surface.withOpacity(0.5),
@@ -458,17 +683,47 @@ class ServiceCard extends StatelessWidget {
                             child: Icon(Icons.add_shopping_cart, color: colorScheme.onPrimary, size: 20),
                           ),
                         ),
+=======
+                        placeholder: (_, __) => Container(height: 300, color: Colors.grey[200], child: const Center(child: CircularProgressIndicator())),
+                        errorWidget: (_, __, ___) => Container(height: 300, color: Colors.grey[200], child: const Icon(Icons.broken_image, size: 80)),
+                      )
+                          : Container(height: 300, color: Colors.grey[200], child: Icon(Icons.image, size: 80, color: Colors.grey)),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(title, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87)),
+                    const SizedBox(height: 15),
+                    Row(
+                      children: [
+                        Text("₹$priceStr", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.red[600])),
+                        if (hasDiscount) ...[
+                          const SizedBox(width: 10),
+                          Text("₹${_parseDouble(comparePrice).toStringAsFixed(0)}", style: TextStyle(fontSize: 18, color: Colors.grey[500], decoration: TextDecoration.lineThrough)),
+                          if (discountPercent != null) ...[
+                            const SizedBox(width: 10),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(color: Colors.green[100], borderRadius: BorderRadius.circular(5)),
+                              child: Text("$discountPercent% OFF", style: TextStyle(color: Colors.green[800], fontWeight: FontWeight.bold, fontSize: 14)),
+                            ),
+                          ],
+                        ],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                       ],
                     ),
                     const SizedBox(height: 20),
                     if (descriptionPoints.isNotEmpty) ...[
+<<<<<<< HEAD
                       Text("Services Included:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: colorScheme.onSurface)),
+=======
+                      const Text("Services Included:", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black87)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                       const SizedBox(height: 15),
                       ...descriptionPoints.map((point) => Padding(
                         padding: const EdgeInsets.only(bottom: 12),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+<<<<<<< HEAD
                             Container(
                               margin: const EdgeInsets.only(top: 6),
                               width: 6,
@@ -482,18 +737,28 @@ class ServiceCard extends StatelessWidget {
                                 style: TextStyle(fontSize: 15, color: colorScheme.onSurface.withOpacity(0.9), height: 1.4),
                               ),
                             ),
+=======
+                            Container(margin: const EdgeInsets.only(top: 6), width: 6, height: 6, decoration: BoxDecoration(color: Colors.blue[600], shape: BoxShape.circle)),
+                            const SizedBox(width: 12),
+                            Expanded(child: Text(point, style: TextStyle(fontSize: 15, color: Colors.grey[800], height: 1.4))),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                           ],
                         ),
                       )),
                     ],
                     if (servicesIncluded.isNotEmpty && servicesIncluded.length != descriptionPoints.length) ...[
                       const SizedBox(height: 20),
+<<<<<<< HEAD
                       Text("Additional Services:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: colorScheme.onSurface)),
+=======
+                      const Text("Additional Services:", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                       const SizedBox(height: 10),
                       ...servicesIncluded.map((service) => Padding(
                         padding: const EdgeInsets.symmetric(vertical: 4),
                         child: Row(
                           children: [
+<<<<<<< HEAD
                             Icon(Icons.check_circle, color: colorScheme.secondary, size: 20),
                             const SizedBox(width: 10),
                             Expanded(
@@ -502,6 +767,11 @@ class ServiceCard extends StatelessWidget {
                                 style: TextStyle(fontSize: 15, color: colorScheme.onSurface.withOpacity(0.9)),
                               ),
                             ),
+=======
+                            const Icon(Icons.check_circle, color: Colors.green, size: 20),
+                            const SizedBox(width: 10),
+                            Expanded(child: Text(service.toString(), style: TextStyle(fontSize: 15, color: Colors.grey[800]))),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                           ],
                         ),
                       )),
@@ -513,6 +783,7 @@ class ServiceCard extends StatelessWidget {
                       child: ElevatedButton(
                         onPressed: () async {
                           Navigator.pop(context);
+<<<<<<< HEAD
                           await _onAddToCart(context, colorScheme);
                         },
                         style: ElevatedButton.styleFrom(
@@ -527,6 +798,22 @@ class ServiceCard extends StatelessWidget {
                             Icon(Icons.shopping_cart_rounded, size: 24, color: colorScheme.onPrimary),
                             const SizedBox(width: 12),
                             Text("Add to Cart", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: colorScheme.onPrimary)),
+=======
+                          await _onAddToCart();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue[600],
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          elevation: 2,
+                        ),
+                        child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.shopping_cart_rounded, size: 24),
+                            SizedBox(width: 12),
+                            Text("Add to Cart", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                           ],
                         ),
                       ),
@@ -542,12 +829,20 @@ class ServiceCard extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildImageSection(String? imageUrl, bool hasDiscount, int? discountPercent, ColorScheme colorScheme) {
+=======
+  Widget _buildImageSection(String? imageUrl, bool hasDiscount, int? discountPercent) {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     return Stack(
       children: [
         ClipRRect(
           borderRadius: BorderRadius.only(topLeft: Radius.circular(3.w), topRight: Radius.circular(3.w)),
+<<<<<<< HEAD
           child: _buildImage(imageUrl, colorScheme),
+=======
+          child: _buildImage(imageUrl),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         ),
         if (hasDiscount && discountPercent != null)
           Positioned(
@@ -556,6 +851,7 @@ class ServiceCard extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 2.5.w, vertical: 0.6.h),
               decoration: BoxDecoration(
+<<<<<<< HEAD
                 gradient: LinearGradient(
                   colors: [colorScheme.error, colorScheme.error.withOpacity(0.7)],
                   begin: Alignment.topLeft,
@@ -563,16 +859,27 @@ class ServiceCard extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(1.5.w),
                 boxShadow: [BoxShadow(color: colorScheme.error.withOpacity(0.3), blurRadius: 6, offset: const Offset(0, 2))],
+=======
+                gradient: LinearGradient(colors: [Colors.red[600]!, Colors.red[400]!], begin: Alignment.topLeft, end: Alignment.bottomRight),
+                borderRadius: BorderRadius.circular(1.5.w),
+                boxShadow: [BoxShadow(color: Colors.red.withOpacity(0.3), blurRadius: 6, offset: const Offset(0, 2))],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+<<<<<<< HEAD
                   Icon(Icons.local_offer_rounded, color: Colors.white, size: 10.sp),
                   SizedBox(width: 1.w),
                   Text(
                     "$discountPercent% OFF",
                     style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.bold, letterSpacing: 0.5),
                   ),
+=======
+                  Icon(Icons.local_offer_rounded, color: Colors.white, size: 9.sp),
+                  SizedBox(width: 1.w),
+                  Text("$discountPercent% OFF", style: TextStyle(color: Colors.white, fontSize: 8.sp, fontWeight: FontWeight.bold, letterSpacing: 0.5)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 ],
               ),
             ),
@@ -581,13 +888,19 @@ class ServiceCard extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildImage(String? imageUrl, ColorScheme colorScheme) {
     if (imageUrl == null || imageUrl.isEmpty) return _buildFallbackImage(colorScheme);
+=======
+  Widget _buildImage(String? imageUrl) {
+    if (imageUrl == null || imageUrl.isEmpty) return _buildFallbackImage();
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     return CachedNetworkImage(
       imageUrl: imageUrl,
       width: double.infinity,
       height: double.infinity,
       fit: BoxFit.cover,
+<<<<<<< HEAD
       placeholder: (_, __) => _buildPlaceholder(colorScheme),
       errorWidget: (_, __, ___) => _buildErrorImage(colorScheme),
     );
@@ -596,19 +909,36 @@ class ServiceCard extends StatelessWidget {
   Widget _buildPlaceholder(ColorScheme colorScheme) {
     return Container(
       color: colorScheme.surface.withOpacity(0.5),
+=======
+      placeholder: (_, __) => _buildPlaceholder(),
+      errorWidget: (_, __, ___) => _buildErrorImage(),
+    );
+  }
+
+  Widget _buildPlaceholder() {
+    return Container(
+      color: Colors.grey[50],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+<<<<<<< HEAD
             const SizedBox(width: 30, height: 30, child: CircularProgressIndicator(strokeWidth: 2.5)),
             SizedBox(height: 1.h),
             Text('Loading...', style: TextStyle(fontSize: 9.sp, color: colorScheme.onSurface.withOpacity(0.6))),
+=======
+            const SizedBox(width: 30, height: 30, child: CircularProgressIndicator(strokeWidth: 2.5, valueColor: AlwaysStoppedAnimation<Color>(Colors.blue))),
+            SizedBox(height: 1.h),
+            Text('Loading...', style: TextStyle(fontSize: 9.sp, color: Colors.grey[600])),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           ],
         ),
       ),
     );
   }
 
+<<<<<<< HEAD
   Widget _buildErrorImage(ColorScheme colorScheme) {
     return Container(
       color: colorScheme.surface.withOpacity(0.3),
@@ -618,11 +948,23 @@ class ServiceCard extends StatelessWidget {
           Icon(Icons.broken_image_rounded, size: 40, color: colorScheme.onSurface.withOpacity(0.4)),
           SizedBox(height: 1.h),
           Text('Image unavailable', style: TextStyle(fontSize: 9.sp, color: colorScheme.onSurface.withOpacity(0.5))),
+=======
+  Widget _buildErrorImage() {
+    return Container(
+      color: Colors.grey[100],
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.broken_image_rounded, size: 40, color: Colors.grey[400]),
+          SizedBox(height: 1.h),
+          Text('Image unavailable', style: TextStyle(fontSize: 9.sp, color: Colors.grey[500])),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         ],
       ),
     );
   }
 
+<<<<<<< HEAD
   Widget _buildFallbackImage(ColorScheme colorScheme) {
     return Container(
       color: colorScheme.surface.withOpacity(0.2),
@@ -638,11 +980,23 @@ class ServiceCard extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
+=======
+  Widget _buildFallbackImage() {
+    return Container(
+      color: Colors.blue[50],
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.cleaning_services_rounded, size: 45, color: Colors.blue[300]),
+          SizedBox(height: 1.h),
+          Text(title.split(' ').first, style: TextStyle(fontSize: 10.sp, color: Colors.blue[700], fontWeight: FontWeight.w600), textAlign: TextAlign.center, maxLines: 1, overflow: TextOverflow.ellipsis),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         ],
       ),
     );
   }
 
+<<<<<<< HEAD
   Widget _buildTitle(ColorScheme colorScheme) {
     return Text(
       title,
@@ -662,6 +1016,19 @@ class ServiceCard extends StatelessWidget {
             "₹${_parseDouble(comparePrice).toStringAsFixed(0)}",
             style: TextStyle(fontSize: 11.sp, color: colorScheme.onSurface.withOpacity(0.6), decoration: TextDecoration.lineThrough),
           ),
+=======
+  Widget _buildTitle() {
+    return Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.5.sp, color: Colors.black87, height: 1.2), maxLines: 2, overflow: TextOverflow.ellipsis);
+  }
+
+  Widget _buildPriceSection(String priceStr, bool hasDiscount) {
+    return Row(
+      children: [
+        Text("₹$priceStr", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.red[600], fontSize: 15.sp)),
+        if (hasDiscount) ...[
+          SizedBox(width: 2.w),
+          Text("₹${_parseDouble(comparePrice).toStringAsFixed(0)}", style: TextStyle(fontSize: 11.sp, color: Colors.grey[500], decoration: TextDecoration.lineThrough, decorationColor: Colors.grey[500], decorationThickness: 1.5)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         ],
       ],
     );

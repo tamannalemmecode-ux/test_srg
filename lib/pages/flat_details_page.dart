@@ -5,14 +5,18 @@ import 'package:new_suvarnraj_group/pages/furnished_flat_page.dart';
 import 'package:new_suvarnraj_group/pages/unfurnished_flat_page.dart';
 import 'package:sizer/sizer.dart';
 
+<<<<<<< HEAD
 import 'enquiry_form_page.dart';
 import 'home_page.dart';
 
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 class FlatDetailsPage extends StatelessWidget {
   const FlatDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final colorScheme = Theme.of(context).colorScheme;
     final isTablet = MediaQuery.of(context).size.width > 600;
 
@@ -35,6 +39,12 @@ class FlatDetailsPage extends StatelessWidget {
         ),
         centerTitle: false,
       ),
+=======
+    final isTablet = MediaQuery.of(context).size.width > 600;
+
+    return Scaffold(
+      backgroundColor: const Color(0xFFF6F8FB),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       body: SingleChildScrollView(
         padding: EdgeInsets.all(4.w),
         child: Center(
@@ -44,10 +54,26 @@ class FlatDetailsPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
+<<<<<<< HEAD
                   "Professional apartment cleaning services for furnished and unfurnished flats",
                   style: TextStyle(
                     fontSize: isTablet ? 12.sp : 14.sp,
                     color: colorScheme.onSurface.withOpacity(0.7),
+=======
+                  "Flat Cleaning Services",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: isTablet ? 18.sp : 22.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 2.h),
+                Text(
+                  "Professional apartment cleaning services for furnished and unfurnished flats",
+                  style: TextStyle(
+                    fontSize: isTablet ? 12.sp : 14.sp,
+                    color: Colors.black54,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   ),
                 ),
                 SizedBox(height: 3.h),
@@ -56,7 +82,10 @@ class FlatDetailsPage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: isTablet ? 16.sp : 18.sp,
                     fontWeight: FontWeight.bold,
+<<<<<<< HEAD
                     color: colorScheme.onSurface,
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   ),
                 ),
                 SizedBox(height: 2.h),
@@ -77,7 +106,10 @@ class FlatDetailsPage extends StatelessWidget {
                   ],
                   isTablet: isTablet,
                   onTap: () => Get.to(() => FurnishedFlatPage()),
+<<<<<<< HEAD
                   colorScheme: colorScheme,
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 ),
                 SizedBox(height: 2.h),
 
@@ -97,7 +129,10 @@ class FlatDetailsPage extends StatelessWidget {
                   ],
                   isTablet: isTablet,
                   onTap: () => Get.to(() => UnfurnishedFlatPage()),
+<<<<<<< HEAD
                   colorScheme: colorScheme,
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 ),
               ],
             ),
@@ -115,13 +150,20 @@ class FlatDetailsPage extends StatelessWidget {
     required List<String> features,
     required bool isTablet,
     required VoidCallback onTap,
+<<<<<<< HEAD
     required ColorScheme colorScheme,
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
+<<<<<<< HEAD
           color: colorScheme.surface,
+=======
+          color: Colors.white,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           borderRadius: BorderRadius.circular(3.w),
           boxShadow: [
             BoxShadow(
@@ -163,7 +205,11 @@ class FlatDetailsPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: isTablet ? 14.sp : 16.sp,
                       fontWeight: FontWeight.bold,
+<<<<<<< HEAD
                       color: colorScheme.primary,
+=======
+                      color: Colors.blue,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                     ),
                   ),
                   SizedBox(height: 1.h),
@@ -171,7 +217,11 @@ class FlatDetailsPage extends StatelessWidget {
                     subtitle,
                     style: TextStyle(
                       fontSize: isTablet ? 11.sp : 13.sp,
+<<<<<<< HEAD
                       color: colorScheme.onSurface.withOpacity(0.7),
+=======
+                      color: Colors.black54,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                     ),
                   ),
                   SizedBox(height: 2.h),
@@ -186,14 +236,22 @@ class FlatDetailsPage extends StatelessWidget {
                           children: [
                             Icon(Icons.check,
                                 size: isTablet ? 15.sp : 18.sp,
+<<<<<<< HEAD
                                 color: colorScheme.secondary),
+=======
+                                color: Colors.green),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                             SizedBox(width: 3.w),
                             Expanded(
                               child: Text(
                                 f,
                                 style: TextStyle(
                                   fontSize: isTablet ? 11.sp : 13.sp,
+<<<<<<< HEAD
                                   color: colorScheme.onSurface,
+=======
+                                  color: Colors.black87,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                                 ),
                               ),
                             ),
@@ -208,7 +266,11 @@ class FlatDetailsPage extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
+<<<<<<< HEAD
                         backgroundColor: colorScheme.primary,
+=======
+                        backgroundColor: Colors.red,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                         padding:
                         EdgeInsets.symmetric(vertical: isTablet ? 1.5.h : 2.h),
                         shape: RoundedRectangleBorder(
@@ -221,7 +283,11 @@ class FlatDetailsPage extends StatelessWidget {
                         style: TextStyle(
                           fontSize: isTablet ? 12.sp : 14.sp,
                           fontWeight: FontWeight.bold,
+<<<<<<< HEAD
                           color: colorScheme.onPrimary,
+=======
+                          color: Colors.white,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                         ),
                       ),
                     ),
@@ -234,4 +300,8 @@ class FlatDetailsPage extends StatelessWidget {
       ),
     );
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38

@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 // lib/pages/tabs/home_tab.dart
+=======
+// lib/pages/home_tab.dart
+
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 import 'dart:math' as math;
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -36,9 +41,12 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
 
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     final homeController = Get.find<HomePageController>();
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
@@ -64,6 +72,7 @@ class HomeTab extends StatelessWidget {
         children: [
           Obx(() {
             if (homeController.isLoading.value) {
+<<<<<<< HEAD
               return _buildLoadingState(colorScheme);
             }
 
@@ -91,6 +100,43 @@ class HomeTab extends StatelessWidget {
                   servicesToShow.isEmpty
                       ? _buildEmptyState(homeController.searchQuery.value, homeController, colorScheme)
                       : _buildServicesGrid(servicesToShow, crossAxisCount, childAspectRatio),
+=======
+              return _buildLoadingState();
+            }
+
+            if (homeController.errorMsg.value.isNotEmpty) {
+              return _buildErrorState(homeController);
+            }
+
+            final allServicesFromAPI = homeController.allServices;
+            final query = homeController.searchQuery.value.toLowerCase();
+            final filteredServices = query.isEmpty
+                ? allServicesFromAPI
+                : allServicesFromAPI.where((s) {
+              final title = s["title"]?.toString().toLowerCase() ?? "";
+              return title.contains(query);
+            }).toList();
+
+            return RefreshIndicator(
+              onRefresh: () => homeController.refreshHomeData(),
+              color: Colors.blue,
+              child: ListView(
+                padding: EdgeInsets.fromLTRB(3.w, 3.w, 3.w, 14.h),
+                children: [
+                  _buildPromotionalCarousel(screenHeight),
+                  SizedBox(height: 3.h),
+                  _buildSectionHeader(),
+                  SizedBox(height: 2.5.h),
+                  _buildServicesHeader(filteredServices.length),
+                  SizedBox(height: 1.5.h),
+                  filteredServices.isEmpty
+                      ? _buildEmptyState(query, homeController)
+                      : _buildServicesGrid(
+                    filteredServices,
+                    crossAxisCount,
+                    childAspectRatio,
+                  ),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 ],
               ),
             );
@@ -101,21 +147,33 @@ class HomeTab extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildLoadingState(ColorScheme colorScheme) {
+=======
+  Widget _buildLoadingState() {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircularProgressIndicator(
             strokeWidth: 3,
+<<<<<<< HEAD
             valueColor: AlwaysStoppedAnimation<Color>(colorScheme.primary),
+=======
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           ),
           SizedBox(height: 2.h),
           Text(
             "Loading services...",
             style: TextStyle(
               fontSize: 14.sp,
+<<<<<<< HEAD
               color: colorScheme.onSurface.withOpacity(0.7),
+=======
+              color: Colors.grey[600],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -124,7 +182,11 @@ class HomeTab extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildErrorState(HomePageController controller, ColorScheme colorScheme) {
+=======
+  Widget _buildErrorState(HomePageController controller) {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     return Center(
       child: Padding(
         padding: EdgeInsets.all(6.w),
@@ -134,7 +196,11 @@ class HomeTab extends StatelessWidget {
             Icon(
               Icons.error_outline_rounded,
               size: 70,
+<<<<<<< HEAD
               color: colorScheme.error.withOpacity(0.5),
+=======
+              color: Colors.red[300],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             ),
             SizedBox(height: 2.h),
             Text(
@@ -142,14 +208,22 @@ class HomeTab extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
+<<<<<<< HEAD
                 color: colorScheme.onSurface,
+=======
+                color: Colors.black87,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               ),
             ),
             SizedBox(height: 1.h),
             Container(
               padding: EdgeInsets.all(3.w),
               decoration: BoxDecoration(
+<<<<<<< HEAD
                 color: colorScheme.error.withOpacity(0.1),
+=======
+                color: Colors.red[50],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 borderRadius: BorderRadius.circular(2.w),
               ),
               child: Text(
@@ -157,13 +231,18 @@ class HomeTab extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 13.sp,
+<<<<<<< HEAD
                   color: colorScheme.error,
+=======
+                  color: Colors.red[700],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 ),
               ),
             ),
             SizedBox(height: 3.h),
             ElevatedButton.icon(
               onPressed: () => controller.fetchHomeData(),
+<<<<<<< HEAD
               icon: Icon(Icons.refresh_rounded, size: 20.sp, color: colorScheme.onPrimary),
               label: Text(
                 "Try Again",
@@ -172,6 +251,16 @@ class HomeTab extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: colorScheme.primary,
                 foregroundColor: colorScheme.onPrimary,
+=======
+              icon: Icon(Icons.refresh_rounded, size: 20.sp),
+              label: Text(
+                "Try Again",
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 1.8.h),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(3.w),
@@ -185,7 +274,11 @@ class HomeTab extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildPromotionalCarousel(double screenHeight, List<Map<String, dynamic>> ads) {
+=======
+  Widget _buildPromotionalCarousel(double screenHeight) {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     return CarouselSlider(
       options: CarouselOptions(
         height: math.max(screenHeight * 0.25, 160),
@@ -211,12 +304,21 @@ class HomeTab extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(4.w),
+<<<<<<< HEAD
         boxShadow: const [
           BoxShadow(
             color: Color(0x26000000),
             blurRadius: 12,
             spreadRadius: 1,
             offset: Offset(0, 4),
+=======
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.15),
+            blurRadius: 12,
+            spreadRadius: 1,
+            offset: const Offset(0, 4),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           ),
         ],
       ),
@@ -230,6 +332,7 @@ class HomeTab extends StatelessWidget {
                   flex: 5,
                   child: Padding(
                     padding: EdgeInsets.all(3.w),
+<<<<<<< HEAD
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -239,16 +342,34 @@ class HomeTab extends StatelessWidget {
                             style: const TextStyle(
                               color: Colors.white,
                               fontSize: 18,
+=======
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            ad["title"],
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.sp,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                               fontWeight: FontWeight.bold,
                               height: 1.2,
                             ),
                             maxLines: 3,
                             overflow: TextOverflow.ellipsis,
                           ),
+<<<<<<< HEAD
                           SizedBox(height: 1.h),
                           _buildCouponCode(ad),
                         ],
                       ),
+=======
+                        ),
+                        _buildCouponCode(ad),
+                      ],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                     ),
                   ),
                 ),
@@ -266,7 +387,11 @@ class HomeTab extends StatelessWidget {
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
                           color: Colors.white.withOpacity(0.1),
+<<<<<<< HEAD
                           child: const Icon(
+=======
+                          child: Icon(
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                             Icons.image_not_supported_rounded,
                             size: 40,
                             color: Colors.white,
@@ -288,6 +413,7 @@ class HomeTab extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
+<<<<<<< HEAD
         Flexible(
           child: Container(
             padding: EdgeInsets.symmetric(
@@ -319,6 +445,35 @@ class HomeTab extends StatelessWidget {
           ),
         ),
         SizedBox(width: 2.w),
+=======
+        Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 3.w,
+            vertical: 0.8.h,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(1.5.w),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Text(
+            ad["code"],
+            style: TextStyle(
+              color: ad["color"],
+              fontWeight: FontWeight.bold,
+              fontSize: 12.sp,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ),
+        SizedBox(width: 3.w),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         InkWell(
           onTap: () {
             Clipboard.setData(ClipboardData(text: ad["code"]));
@@ -350,7 +505,11 @@ class HomeTab extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildSectionHeader(ColorScheme colorScheme) {
+=======
+  Widget _buildSectionHeader() {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -363,7 +522,11 @@ class HomeTab extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
+<<<<<<< HEAD
                   color: colorScheme.onSurface,
+=======
+                  color: Colors.black,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   letterSpacing: 1,
                 ),
               ),
@@ -372,7 +535,11 @@ class HomeTab extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
+<<<<<<< HEAD
                   color: colorScheme.primary,
+=======
+                  color: Colors.blue,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   letterSpacing: 1,
                 ),
               ),
@@ -381,7 +548,11 @@ class HomeTab extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
+<<<<<<< HEAD
                   color: colorScheme.onSurface,
+=======
+                  color: Colors.black,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   letterSpacing: 1,
                 ),
               ),
@@ -393,7 +564,11 @@ class HomeTab extends StatelessWidget {
           height: 0.5.h,
           width: 20.w,
           decoration: BoxDecoration(
+<<<<<<< HEAD
             color: colorScheme.error,
+=======
+            color: Colors.red,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             borderRadius: BorderRadius.circular(1.w),
           ),
         ),
@@ -401,7 +576,11 @@ class HomeTab extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildServicesHeader(int count, ColorScheme colorScheme) {
+=======
+  Widget _buildServicesHeader(int count) {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 1.w),
       child: Row(
@@ -412,7 +591,11 @@ class HomeTab extends StatelessWidget {
             style: TextStyle(
               fontSize: 17.sp,
               fontWeight: FontWeight.bold,
+<<<<<<< HEAD
               color: colorScheme.onSurface,
+=======
+              color: Colors.black87,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             ),
           ),
           Container(
@@ -421,7 +604,11 @@ class HomeTab extends StatelessWidget {
               vertical: 0.5.h,
             ),
             decoration: BoxDecoration(
+<<<<<<< HEAD
               color: colorScheme.primary.withOpacity(0.1),
+=======
+              color: Colors.blue[50],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               borderRadius: BorderRadius.circular(3.w),
             ),
             child: Text(
@@ -429,7 +616,11 @@ class HomeTab extends StatelessWidget {
               style: TextStyle(
                 fontSize: 11.sp,
                 fontWeight: FontWeight.w600,
+<<<<<<< HEAD
                 color: colorScheme.primary,
+=======
+                color: Colors.blue,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               ),
             ),
           ),
@@ -438,7 +629,11 @@ class HomeTab extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildEmptyState(String query, HomePageController controller, ColorScheme colorScheme) {
+=======
+  Widget _buildEmptyState(String query, HomePageController controller) {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -447,7 +642,11 @@ class HomeTab extends StatelessWidget {
             Icon(
               Icons.search_off_rounded,
               size: 70,
+<<<<<<< HEAD
               color: colorScheme.onSurface.withOpacity(0.3),
+=======
+              color: Colors.grey[300],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             ),
             SizedBox(height: 2.h),
             Text(
@@ -456,7 +655,11 @@ class HomeTab extends StatelessWidget {
                   : "No results for \"$query\"",
               style: TextStyle(
                 fontSize: 15.sp,
+<<<<<<< HEAD
                 color: colorScheme.onSurface.withOpacity(0.6),
+=======
+                color: Colors.grey[600],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 fontWeight: FontWeight.w500,
               ),
               textAlign: TextAlign.center,
@@ -467,10 +670,14 @@ class HomeTab extends StatelessWidget {
                 onPressed: () => controller.updateSearch(""),
                 child: Text(
                   "Clear search",
+<<<<<<< HEAD
                   style: TextStyle(
                     fontSize: 13.sp,
                     color: colorScheme.primary,
                   ),
+=======
+                  style: TextStyle(fontSize: 13.sp),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 ),
               ),
             ],
@@ -480,6 +687,10 @@ class HomeTab extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
+=======
+  // 🔥 सुधारित: Product ID validation सह
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   Widget _buildServicesGrid(
       List<Map<String, dynamic>> services,
       int crossAxisCount,
@@ -498,14 +709,23 @@ class HomeTab extends StatelessWidget {
       ),
       itemBuilder: (context, index) {
         final service = services[index];
+<<<<<<< HEAD
         final colorScheme = Theme.of(context).colorScheme;
 
+=======
+
+        // ✅ Validation: service मध्ये id आहे का?
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         if (service['id'] == null || service['id'] == 0) {
           return Container(
             alignment: Alignment.center,
             child: Text(
               "Invalid Service",
+<<<<<<< HEAD
               style: TextStyle(color: colorScheme.error, fontSize: 12.sp),
+=======
+              style: TextStyle(color: Colors.red, fontSize: 12.sp),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             ),
           );
         }
@@ -545,11 +765,20 @@ class HomeTab extends StatelessWidget {
     );
   }
 
+<<<<<<< HEAD
   Future<void> _onWhatsAppTap() async {
     const phoneNumber = "918485854972";
     const message = "Hi! I'm interested in your cleaning services.";
     final whatsappUri = Uri.parse(
       "https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}",
+=======
+  // 🔥 सुधारित: WhatsApp URL मधून spaces काढले
+  Future<void> _onWhatsAppTap() async {
+    const phoneNumber = "919763954728"; // 👈 +91 प्रीफिक्स दिला
+    const message = "Hi! I'm interested in your cleaning services.";
+    final whatsappUri = Uri.parse(
+      "https://wa.me/$phoneNumber?text=${Uri.encodeComponent(message)}", // 👈 spaces काढले
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     );
     try {
       await launchUrl(whatsappUri, mode: LaunchMode.externalApplication);
@@ -564,7 +793,11 @@ class HomeTab extends StatelessWidget {
   }
 
   Future<void> _onChatTap() async {
+<<<<<<< HEAD
     const phoneNumber = "918485854972";
+=======
+    const phoneNumber = "9763954728";
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     const message = "Hi! I'm interested in your cleaning services.";
     final smsUri = Uri(
       scheme: 'sms',

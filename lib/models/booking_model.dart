@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // lib/models/booking_model.dart
 
 class BookingModel {
@@ -10,6 +11,20 @@ class BookingModel {
   final String customerName;
   final double price;
   final String status;
+=======
+import 'package:intl/intl.dart';
+
+class BookingModel {
+  int id;
+  String serviceName;
+  String category;
+  DateTime dateTime; // mutable
+  String address;
+  String? secondaryAddress;
+  String customerName;
+  double price;
+  String status; // mutable
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
   BookingModel({
     required this.id,
@@ -24,6 +39,7 @@ class BookingModel {
   });
 
   factory BookingModel.fromJson(Map<String, dynamic> json) {
+<<<<<<< HEAD
     // ✅ Parse DATE from booking_date safely
     DateTime datePart = DateTime.now();
     try {
@@ -52,6 +68,28 @@ class BookingModel {
       }
     } catch (e) {
       print('❌ Failed to parse booking_time: $e');
+=======
+    // ✅ Parse DATE from booking_date (ISO string)
+    DateTime datePart;
+    try {
+      // booking_date: "2025-10-31T00:00:00.000000Z"
+      datePart = DateTime.parse(json['booking_date'] ?? '');
+    } catch (e) {
+      datePart = DateTime.now();
+    }
+
+    // ✅ Parse TIME from booking_time ("10:00:00")
+    int hour = 0, minute = 0;
+    try {
+      final timeStr = json['booking_time'] ?? '00:00:00';
+      final parts = timeStr.split(':');
+      if (parts.length >= 2) {
+        hour = int.tryParse(parts[0]) ?? 0;
+        minute = int.tryParse(parts[1]) ?? 0;
+      }
+    } catch (e) {
+      // keep 00:00
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     }
 
     // ✅ Combine date + time
@@ -63,6 +101,7 @@ class BookingModel {
       minute,
     );
 
+<<<<<<< HEAD
     // ✅ Service & Category from items
     List<dynamic> items = json['items'] ?? [];
     String serviceName = "Service";
@@ -101,6 +140,46 @@ class BookingModel {
       // Remove commas if present (e.g., "1,850.00")
       final cleanValue = totalValue.replaceAll(',', '');
       price = double.tryParse(cleanValue) ?? 0.0;
+=======
+    // ✅ Service & Category
+    List<dynamic> items = json['items'] ?? [];
+    String serviceName = "Service";
+    String category = "General";
+
+    if (items.isNotEmpty) {
+      final firstItem = items[0] as Map<String, dynamic>?;
+      serviceName = firstItem?['name']?.toString() ?? "Service";
+      // Optional: infer category from service name or use backend field if available
+      category = "Cleaning"; // or use json['category'] if API adds it later
+    }
+
+    // ✅ ID
+    int id = 0;
+    if (json['id'] is int) {
+      id = json['id'];
+    } else if (json['id'] is String) {
+      id = int.tryParse(json['id']) ?? 0;
+    }
+
+    // ✅ Address & Customer Name
+    // Note: /orders list API does NOT return address or name!
+    // But if you enhance backend, or if this comes from /orders/{id}, it may work.
+    // For now, use safe fallbacks.
+    String address = json['address']?.toString() ?? "Address not available";
+    String? secondaryAddress = json['apartment']?.toString();
+
+    String firstName = json['first_name']?.toString() ?? '';
+    String lastName = json['last_name']?.toString() ?? '';
+    String customerName = (firstName.trim() + ' ' + lastName.trim()).trim();
+    if (customerName.isEmpty) customerName = "You";
+
+    // ✅ Price
+    double price = 0.0;
+    if (json['grand_total'] != null) {
+      price = (json['grand_total'] is num)
+          ? (json['grand_total'] as num).toDouble()
+          : double.tryParse(json['grand_total'].toString()) ?? 0.0;
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     }
 
     // ✅ Status mapping
@@ -139,7 +218,10 @@ class BookingModel {
     }
   }
 
+<<<<<<< HEAD
   // ✅ COPYWITH for updating immutable fields
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   BookingModel copyWith({
     int? id,
     String? serviceName,

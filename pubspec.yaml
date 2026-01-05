@@ -11,7 +11,11 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
+<<<<<<< HEAD
   get: ^4.7.3
+=======
+  get: ^4.7.2
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   font_awesome_flutter: ^10.10.0
   lottie: ^2.4.0
   carousel_slider: ^5.1.1
@@ -20,6 +24,10 @@ dependencies:
   timezone: ^0.10.1
   intl: ^0.19.0
   table_calendar: ^3.0.9
+<<<<<<< HEAD
+=======
+  google_sign_in: ^6.2.1
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   shared_preferences: ^2.5.3
   url_launcher: ^6.3.2
   flutter_launcher_icons: ^0.14.4
@@ -29,10 +37,13 @@ dependencies:
   dio: ^5.9.0
   flutter_html: ^3.0.0
   cached_network_image: ^3.4.1
+<<<<<<< HEAD
   google_sign_in: ^6.1.5
   image_picker: ^1.0.4
   # firebase_core: ^2.24.0    # stable for web
   # firebase_auth: ^4.16.0
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
 dev_dependencies:
   flutter_test:
@@ -44,9 +55,14 @@ flutter:
   assets:
     - assets/images/
     - assets/animations/
+<<<<<<< HEAD
     - assets/order_confirmed.json
 
 # 👇 flutter_icons must be OUTSIDE the "flutter:" block
+=======
+
+# 👇 move this OUTSIDE "flutter:"
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 flutter_icons:
   android: true
   ios: true

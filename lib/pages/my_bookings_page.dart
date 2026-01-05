@@ -7,6 +7,7 @@ class MyBookingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -25,6 +26,14 @@ class MyBookingsPage extends StatelessWidget {
         elevation: 1,
       ),
       body: const BookingsTab(),
+=======
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My Bookings', style: TextStyle(fontSize: 16.sp)),
+        centerTitle: true,
+      ),
+      body: BookingsTab(),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     );
   }
 }

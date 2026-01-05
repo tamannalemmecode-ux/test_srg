@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // ✅ lib/pages/favorites_page.dart - FULLY RESPONSIVE WITH SIZER + DARK/LIGHT MODE
+=======
+// ✅ lib/pages/favorites_page.dart - FULLY RESPONSIVE WITH SIZER
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -34,6 +38,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
@@ -42,45 +47,79 @@ class _FavoritesPageState extends State<FavoritesPage> {
         title: Text('My Favorites', style: TextStyle(fontWeight: FontWeight.bold, color: colorScheme.onSurface)),
         backgroundColor: colorScheme.surface,
         foregroundColor: colorScheme.onSurface,
+=======
+    return Scaffold(
+      backgroundColor: Colors.grey[50],
+      appBar: AppBar(
+        title: const Text('My Favorites', style: TextStyle(fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         elevation: 1,
         centerTitle: true,
         actions: [
           IconButton(
+<<<<<<< HEAD
             icon: Icon(Icons.refresh, color: colorScheme.primary),
+=======
+            icon: const Icon(Icons.refresh, color: Colors.blue),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             onPressed: () {
               wishlistCtrl.loadWishlist();
               Get.snackbar(
                 "Refreshed",
                 "Favorites updated",
                 snackPosition: SnackPosition.BOTTOM,
+<<<<<<< HEAD
                 backgroundColor: colorScheme.primary.withOpacity(0.1),
                 colorText: colorScheme.primary,
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 duration: const Duration(seconds: 1),
               );
             },
           ),
           Obx(() => wishlistCtrl.wishlistItems.isNotEmpty
               ? IconButton(
+<<<<<<< HEAD
             icon: Icon(Icons.delete_sweep, color: colorScheme.error),
             onPressed: () => _showClearDialog(colorScheme),
+=======
+            icon: const Icon(Icons.delete_sweep, color: Colors.red),
+            onPressed: () => _showClearDialog(),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           )
               : const SizedBox()),
         ],
       ),
       body: Obx(() {
         if (wishlistCtrl.isLoading.value && wishlistCtrl.wishlistItems.isEmpty) {
+<<<<<<< HEAD
           return Center(child: CircularProgressIndicator(color: colorScheme.primary));
         }
 
         if (wishlistCtrl.wishlistItems.isEmpty) {
           return _buildEmptyState(colorScheme);
+=======
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (wishlistCtrl.wishlistItems.isEmpty) {
+          return _buildEmptyState();
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         }
 
         return RefreshIndicator(
           onRefresh: () => wishlistCtrl.loadWishlist(),
+<<<<<<< HEAD
           color: colorScheme.primary,
           child: LayoutBuilder(
             builder: (context, constraints) {
+=======
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              // Responsive grid - 3 columns on tablets, 2 on phones
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               final crossAxisCount = constraints.maxWidth > 600 ? 3 : 2;
 
               return GridView.builder(
@@ -94,7 +133,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
                 itemCount: wishlistCtrl.wishlistItems.length,
                 itemBuilder: (context, index) {
                   final item = wishlistCtrl.wishlistItems[index];
+<<<<<<< HEAD
                   return _buildFavoriteCard(item, colorScheme);
+=======
+                  return _buildFavoriteCard(item);
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 },
               );
             },
@@ -104,21 +147,39 @@ class _FavoritesPageState extends State<FavoritesPage> {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildFavoriteCard(Map<String, dynamic> item, ColorScheme colorScheme) {
     final price = _parseDouble(item['price']);
     final comparePrice = _parseDouble(item['compare_price']);
     final hasDiscount = comparePrice > 0 && comparePrice > price;
     final discountPercent = hasDiscount ? ((comparePrice - price) / comparePrice * 100).round() : 0;
+=======
+  // ✅ FAVORITE CARD - RESPONSIVE WITH SIZER
+  Widget _buildFavoriteCard(Map<String, dynamic> item) {
+    final price = _parseDouble(item['price']);
+    final comparePrice = _parseDouble(item['compare_price']);
+    final hasDiscount = comparePrice > 0 && comparePrice > price;
+    final discountPercent = hasDiscount
+        ? ((comparePrice - price) / comparePrice * 100).round()
+        : 0;
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     final imageUrl = _normalizeImageUrl(item['image'] ?? item['image_url']);
     final productId = item['id'] ?? item['product_id'];
 
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
+<<<<<<< HEAD
         color: colorScheme.surface,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
+=======
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.1),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             blurRadius: 8,
             spreadRadius: 1,
           ),
@@ -127,6 +188,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+<<<<<<< HEAD
+=======
+          // Image Section - Fixed aspect ratio
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           Expanded(
             flex: 6,
             child: Stack(
@@ -142,22 +207,37 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     height: double.infinity,
                     fit: BoxFit.cover,
                     placeholder: (_, __) => Container(
+<<<<<<< HEAD
                       color: colorScheme.surface.withOpacity(0.5),
+=======
+                      color: Colors.grey[200],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                       child: const Center(
                         child: CircularProgressIndicator(strokeWidth: 2),
                       ),
                     ),
                     errorWidget: (_, __, ___) => Container(
+<<<<<<< HEAD
                       color: colorScheme.surface.withOpacity(0.5),
                       child: Icon(
                         Icons.image_not_supported,
                         color: colorScheme.onSurface.withOpacity(0.4),
+=======
+                      color: Colors.grey[200],
+                      child: Icon(
+                        Icons.image_not_supported,
+                        color: Colors.grey[400],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                         size: 40,
                       ),
                     ),
                   ),
                 ),
 
+<<<<<<< HEAD
+=======
+                // Discount Badge
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 if (hasDiscount && discountPercent > 0)
                   Positioned(
                     top: 2.w,
@@ -166,7 +246,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
+<<<<<<< HEAD
                           colors: [colorScheme.error, colorScheme.error.withOpacity(0.7)],
+=======
+                          colors: [Colors.red[600]!, Colors.red[400]!],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                         ),
@@ -183,6 +267,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     ),
                   ),
 
+<<<<<<< HEAD
+=======
+                // Favorite Button
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 Positioned(
                   top: 2.w,
                   right: 2.w,
@@ -194,8 +282,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
                           "Removed",
                           "Item removed from favorites",
                           snackPosition: SnackPosition.BOTTOM,
+<<<<<<< HEAD
                           backgroundColor: colorScheme.secondary.withOpacity(0.1),
                           colorText: colorScheme.secondary,
+=======
+                          backgroundColor: Colors.orange[100],
+                          colorText: Colors.orange[900],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                           duration: const Duration(seconds: 2),
                         );
                       }
@@ -203,7 +296,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     child: Container(
                       padding: EdgeInsets.all(2.w),
                       decoration: BoxDecoration(
+<<<<<<< HEAD
                         color: colorScheme.surface,
+=======
+                        color: Colors.white.withOpacity(0.95),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
@@ -215,7 +312,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       ),
                       child: Icon(
                         Icons.favorite,
+<<<<<<< HEAD
                         color: colorScheme.error,
+=======
+                        color: Colors.red[600],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                         size: 14.sp,
                       ),
                     ),
@@ -225,6 +326,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
             ),
           ),
 
+<<<<<<< HEAD
+=======
+          // Details Section - Flexible with min size
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           Expanded(
             flex: 4,
             child: Padding(
@@ -232,6 +337,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+<<<<<<< HEAD
+=======
+                  // Title - Takes available space
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   Flexible(
                     flex: 2,
                     child: Text(
@@ -239,7 +348,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
                       style: TextStyle(
                         fontSize: 10.5.sp,
                         fontWeight: FontWeight.w600,
+<<<<<<< HEAD
                         color: colorScheme.onSurface,
+=======
+                        color: Colors.black87,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                         height: 1.2,
                       ),
                       maxLines: 2,
@@ -249,6 +362,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
                   SizedBox(height: 0.5.h),
 
+<<<<<<< HEAD
+=======
+                  // Price Row
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   Row(
                     children: [
                       Text(
@@ -256,7 +373,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         style: TextStyle(
                           fontSize: 11.sp,
                           fontWeight: FontWeight.bold,
+<<<<<<< HEAD
                           color: colorScheme.primary,
+=======
+                          color: Colors.red[600],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                         ),
                       ),
                       if (hasDiscount) ...[
@@ -266,7 +387,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
                             "₹${comparePrice.toStringAsFixed(0)}",
                             style: TextStyle(
                               fontSize: 9.sp,
+<<<<<<< HEAD
                               color: colorScheme.onSurface.withOpacity(0.6),
+=======
+                              color: Colors.grey[500],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                               decoration: TextDecoration.lineThrough,
                             ),
                             overflow: TextOverflow.ellipsis,
@@ -278,14 +403,25 @@ class _FavoritesPageState extends State<FavoritesPage> {
 
                   SizedBox(height: 1.h),
 
+<<<<<<< HEAD
+=======
+                  // Add to Cart Button - Fixed height
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   SizedBox(
                     width: double.infinity,
                     height: 4.5.h,
                     child: ElevatedButton(
+<<<<<<< HEAD
                       onPressed: () => _addToCart(item, colorScheme),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: colorScheme.primary,
                         foregroundColor: colorScheme.onPrimary,
+=======
+                      onPressed: () => _addToCart(item),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blue[600],
+                        foregroundColor: Colors.white,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                         padding: EdgeInsets.symmetric(horizontal: 2.w),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
@@ -296,14 +432,21 @@ class _FavoritesPageState extends State<FavoritesPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
                         children: [
+<<<<<<< HEAD
                           Icon(Icons.shopping_cart, size: 11.sp, color: colorScheme.onPrimary),
+=======
+                          Icon(Icons.shopping_cart, size: 11.sp),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                           SizedBox(width: 1.w),
                           Text(
                             "Add",
                             style: TextStyle(
                               fontSize: 10.sp,
                               fontWeight: FontWeight.w600,
+<<<<<<< HEAD
                               color: colorScheme.onPrimary,
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                             ),
                           ),
                         ],
@@ -319,7 +462,12 @@ class _FavoritesPageState extends State<FavoritesPage> {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildEmptyState(ColorScheme colorScheme) {
+=======
+  // ✅ EMPTY STATE
+  Widget _buildEmptyState() {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     return Center(
       child: SingleChildScrollView(
         padding: EdgeInsets.all(5.w),
@@ -329,7 +477,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
             Icon(
               Icons.favorite_border,
               size: 80,
+<<<<<<< HEAD
               color: colorScheme.onSurface.withOpacity(0.3),
+=======
+              color: Colors.grey[300],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             ),
             SizedBox(height: 2.h),
             Text(
@@ -337,7 +489,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
+<<<<<<< HEAD
                 color: colorScheme.onSurface.withOpacity(0.6),
+=======
+                color: Colors.grey[600],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               ),
             ),
             SizedBox(height: 1.h),
@@ -345,7 +501,11 @@ class _FavoritesPageState extends State<FavoritesPage> {
               'Add items to your favorites to see them here',
               style: TextStyle(
                 fontSize: 13.sp,
+<<<<<<< HEAD
                 color: colorScheme.onSurface.withOpacity(0.5),
+=======
+                color: Colors.grey[500],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               ),
               textAlign: TextAlign.center,
             ),
@@ -355,8 +515,13 @@ class _FavoritesPageState extends State<FavoritesPage> {
               icon: const Icon(Icons.shopping_bag),
               label: const Text('Continue Shopping'),
               style: ElevatedButton.styleFrom(
+<<<<<<< HEAD
                 backgroundColor: colorScheme.primary,
                 foregroundColor: colorScheme.onPrimary,
+=======
+                backgroundColor: Colors.blue[600],
+                foregroundColor: Colors.white,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 1.5.h),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -369,15 +534,25 @@ class _FavoritesPageState extends State<FavoritesPage> {
     );
   }
 
+<<<<<<< HEAD
   Future<void> _addToCart(Map<String, dynamic> item, ColorScheme colorScheme) async {
+=======
+  // ✅ ADD TO CART
+  Future<void> _addToCart(Map<String, dynamic> item) async {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     try {
       if (!userCtrl.isLoggedIn.value || userCtrl.token.value.isEmpty) {
         Get.snackbar(
           "Login Required",
           "Please login to add items to cart",
           snackPosition: SnackPosition.BOTTOM,
+<<<<<<< HEAD
           backgroundColor: colorScheme.error.withOpacity(0.1),
           colorText: colorScheme.onError,
+=======
+          backgroundColor: Colors.orange[600],
+          colorText: Colors.white,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           duration: const Duration(seconds: 3),
         );
         return;
@@ -392,6 +567,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
               child: Container(
                 padding: const EdgeInsets.all(24),
                 decoration: BoxDecoration(
+<<<<<<< HEAD
                   color: colorScheme.surface,
                   borderRadius: BorderRadius.circular(16),
                 ),
@@ -401,6 +577,17 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     CircularProgressIndicator(color: colorScheme.primary),
                     SizedBox(height: 16),
                     Text("Adding to cart...", style: TextStyle(fontSize: 16, color: colorScheme.onSurface)),
+=======
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: const Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircularProgressIndicator(color: Colors.blue),
+                    SizedBox(height: 16),
+                    Text("Adding to cart...", style: TextStyle(fontSize: 16)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   ],
                 ),
               ),
@@ -430,12 +617,19 @@ class _FavoritesPageState extends State<FavoritesPage> {
                     "${item['title']} added to cart!",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
+<<<<<<< HEAD
                     style: const TextStyle(color: Colors.white),
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   ),
                 ),
               ],
             ),
+<<<<<<< HEAD
             backgroundColor: colorScheme.primary,
+=======
+            backgroundColor: Colors.green[600],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             duration: const Duration(seconds: 3),
             behavior: SnackBarBehavior.floating,
             margin: const EdgeInsets.all(12),
@@ -455,11 +649,16 @@ class _FavoritesPageState extends State<FavoritesPage> {
       if (Get.context != null) {
         ScaffoldMessenger.of(Get.context!).showSnackBar(
           SnackBar(
+<<<<<<< HEAD
             content: Text(
               "Error: ${e.toString().replaceAll('Exception: ', '')}",
               style: const TextStyle(color: Colors.white), // ✅ याऐवजी contentTextStyle वापरू नका
             ),
             backgroundColor: colorScheme.error,
+=======
+            content: Text("Error: ${e.toString().replaceAll('Exception: ', '')}"),
+            backgroundColor: Colors.red[600],
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             duration: const Duration(seconds: 3),
             behavior: SnackBarBehavior.floating,
           ),
@@ -468,14 +667,24 @@ class _FavoritesPageState extends State<FavoritesPage> {
     }
   }
 
+<<<<<<< HEAD
   void _showClearDialog(ColorScheme colorScheme) {
+=======
+  // ✅ CLEAR ALL FAVORITES DIALOG
+  void _showClearDialog() {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     Get.defaultDialog(
       title: "Clear All Favorites?",
       middleText: "This action cannot be undone.",
       textConfirm: "Clear",
       textCancel: "Cancel",
+<<<<<<< HEAD
       confirmTextColor: colorScheme.onPrimary,
       buttonColor: colorScheme.error,
+=======
+      confirmTextColor: Colors.white,
+      buttonColor: Colors.red,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       onConfirm: () {
         wishlistCtrl.clearWishlist();
         Get.back();
@@ -483,6 +692,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
     );
   }
 
+<<<<<<< HEAD
+=======
+  // ✅ HELPER: Parse double
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   double _parseDouble(dynamic value) {
     if (value == null) return 0.0;
     if (value is double) return value;
@@ -491,6 +704,10 @@ class _FavoritesPageState extends State<FavoritesPage> {
     return 0.0;
   }
 
+<<<<<<< HEAD
+=======
+  // ✅ HELPER: Normalize image URL
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   String _normalizeImageUrl(dynamic rawImage) {
     if (rawImage == null || rawImage.toString().trim().isEmpty) {
       return 'https://via.placeholder.com/300?text=No+Image';

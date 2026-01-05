@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 // lib/controller/home_page_controller.dart
 import 'package:flutter/foundation.dart';
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 import 'package:get/get.dart';
 import '../api/api_service.dart';
 
 class HomePageController extends GetxController {
+<<<<<<< HEAD
   final RxBool isLoading = false.obs;
   final RxString errorMsg = ''.obs;
   final RxList<Map<String, dynamic>> allServices = <Map<String, dynamic>>[].obs;
@@ -15,11 +19,21 @@ class HomePageController extends GetxController {
   final RxInt currentIndex = 0.obs;
 
   bool _isFetching = false;
+=======
+  var isLoading = false.obs;
+  var errorMsg = "".obs;
+
+  // data from API
+  var cleaningProducts = [].obs;
+  var furnitureProducts = [].obs;
+  var allServices = [].obs; // you can merge or keep separately
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
   @override
   void onInit() {
     super.onInit();
     fetchHomeData();
+<<<<<<< HEAD
 
     debounce(
       searchQuery,
@@ -168,3 +182,28 @@ class HomePageController extends GetxController {
     }
   }
 }
+=======
+  }
+
+  Future<void> fetchHomeData() async {
+    try {
+      isLoading.value = true;
+      errorMsg.value = "";
+      final jsonData = await ApiService.fetchHomeData();
+
+      cleaningProducts.assignAll(jsonData['data']['cleaning_products'] ?? []);
+      furnitureProducts.assignAll(jsonData['data']['furniture_products'] ?? []);
+
+      // optional: merge all into one list
+      allServices.assignAll([
+        ...cleaningProducts,
+        ...furnitureProducts,
+      ]);
+    } catch (e) {
+      errorMsg.value = e.toString();
+    } finally {
+      isLoading.value = false;
+    }
+  }
+}
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38

@@ -1,7 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <application
+<<<<<<< HEAD
         android:label="SRG"
+=======
+        android:label="SVG"
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:enableOnBackInvokedCallback="true">

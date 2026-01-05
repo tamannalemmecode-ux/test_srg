@@ -25,29 +25,54 @@ class _RegisterPageState extends State<RegisterPage> {
 
   final registerCtrl = Get.put(RegisterController());
 
+<<<<<<< HEAD
   // ✅ Validation logic (unchanged)
   String? validateName(String value) {
     if (value.isEmpty) return "Full name is required";
     if (value.length < 3) return "Name must be at least 3 characters";
     if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
       return "Name can only contain letters and spaces";
+=======
+  // Validation Methods
+  String? validateName(String value) {
+    if (value.isEmpty) return "Name is required";
+    if (value.length < 3) return "Name must be at least 3 characters";
+    // Only letters and spaces allowed
+    if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(value)) {
+      return "Name can only contain letters";
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     }
     return null;
   }
 
   String? validateEmail(String value) {
+<<<<<<< HEAD
     if (value.isEmpty) return "Email address is required";
     if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
       return "Please enter a valid email address";
+=======
+    if (value.isEmpty) return "Email is required";
+    // Email regex pattern
+    if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(value)) {
+      return "Enter a valid email address";
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     }
     return null;
   }
 
   String? validatePhone(String value) {
     if (value.isEmpty) return "Phone number is required";
+<<<<<<< HEAD
     if (value.length != 10) return "Phone number must be exactly 10 digits";
     if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(value)) {
       return "Phone number must start with 6, 7, 8, or 9";
+=======
+    // Must be exactly 10 digits
+    if (value.length != 10) return "Phone number must be 10 digits";
+    // Must start with 6, 7, 8, or 9
+    if (!RegExp(r'^[6-9][0-9]{9}$').hasMatch(value)) {
+      return "Invalid phone number format";
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     }
     return null;
   }
@@ -55,15 +80,27 @@ class _RegisterPageState extends State<RegisterPage> {
   String? validatePassword(String value) {
     if (value.isEmpty) return "Password is required";
     if (value.length < 6) return "Password must be at least 6 characters";
+<<<<<<< HEAD
+=======
+    // Optional: Add more password strength requirements
+    // if (!RegExp(r'^(?=.*[A-Za-z])(?=.*\d)').hasMatch(value)) {
+    //   return "Password must contain letters and numbers";
+    // }
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     return null;
   }
 
   String? validateConfirmPassword(String value, String password) {
+<<<<<<< HEAD
     if (value.isEmpty) return "Please confirm your password";
+=======
+    if (value.isEmpty) return "Confirm password is required";
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     if (value != password) return "Passwords do not match";
     return null;
   }
 
+<<<<<<< HEAD
   // ✅ Snackbar - THEME COMPLIANT
   void _showCustomSnackbar(String title, String message, bool isError) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -144,6 +181,8 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   void handleRegister() async {
     final name = nameController.text.trim();
     final email = emailController.text.trim();
@@ -151,6 +190,7 @@ class _RegisterPageState extends State<RegisterPage> {
     final password = passwordController.text.trim();
     final confirmPassword = confirmPasswordController.text.trim();
 
+<<<<<<< HEAD
     final nameError = validateName(name);
     if (nameError != null) {
       _showCustomSnackbar("Validation Error", nameError, true);
@@ -186,6 +226,68 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
+=======
+    // Validate Name
+    final nameError = validateName(name);
+    if (nameError != null) {
+      Get.snackbar("Validation Error", nameError,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade100,
+          icon: Icon(Icons.error_outline, color: Colors.red));
+      return;
+    }
+
+    // Validate Email
+    final emailError = validateEmail(email);
+    if (emailError != null) {
+      Get.snackbar("Validation Error", emailError,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade100,
+          icon: Icon(Icons.error_outline, color: Colors.red));
+      return;
+    }
+
+    // Validate Phone
+    final phoneError = validatePhone(phone);
+    if (phoneError != null) {
+      Get.snackbar("Validation Error", phoneError,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade100,
+          icon: Icon(Icons.error_outline, color: Colors.red));
+      return;
+    }
+
+    // Validate Password
+    final passwordError = validatePassword(password);
+    if (passwordError != null) {
+      Get.snackbar("Validation Error", passwordError,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade100,
+          icon: Icon(Icons.error_outline, color: Colors.red));
+      return;
+    }
+
+    // Validate Confirm Password
+    final confirmPasswordError = validateConfirmPassword(confirmPassword, password);
+    if (confirmPasswordError != null) {
+      Get.snackbar("Validation Error", confirmPasswordError,
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red.shade100,
+          icon: Icon(Icons.error_outline, color: Colors.red));
+      return;
+    }
+
+    // Check Terms Agreement
+    if (!agreeTerms) {
+      Get.snackbar("Terms Required", "Please accept Terms & Privacy Policy",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.orange.shade100,
+          icon: Icon(Icons.warning_amber, color: Colors.orange));
+      return;
+    }
+
+    // All validations passed - proceed with registration
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     final success = await registerCtrl.register(
       name: name,
       email: email,
@@ -194,23 +296,33 @@ class _RegisterPageState extends State<RegisterPage> {
       confirmPassword: confirmPassword,
     );
 
+<<<<<<< HEAD
     if (success) {
       Get.off(() => const LoginPage());
     }
+=======
+    if (success) Get.off(() => const LoginPage());
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   }
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
       backgroundColor: colorScheme.background,
+=======
+    return Scaffold(
+      backgroundColor: Colors.white,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       body: Center(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 6.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+<<<<<<< HEAD
               SizedBox(height: 8.h),
 
               Image.asset("assets/images/logo.jpg", height: 9.h),
@@ -595,18 +707,154 @@ class _RegisterPageState extends State<RegisterPage> {
                             fontSize: 13.sp,
                           ),
                         ),
+=======
+              Image.asset("assets/images/logo.jpg", height: 8.h),
+              SizedBox(height: 3.h),
+
+              Text("Create Account",
+                  style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold)),
+              SizedBox(height: 0.5.h),
+              Text("Join us for better cleaning services",
+                  style: TextStyle(color: Colors.grey, fontSize: 12.sp)),
+
+              SizedBox(height: 3.h),
+
+              // Full Name - Only Letters
+              TextField(
+                controller: nameController,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
+                ],
+                decoration: InputDecoration(
+                  labelText: "Full Name",
+                  hintText: "Enter your full name",
+                  prefixIcon: const Icon(Icons.person_outline),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                ),
+              ),
+              SizedBox(height: 2.h),
+
+              // Email
+              TextField(
+                controller: emailController,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                  labelText: "Email Address",
+                  hintText: "Enter your email",
+                  prefixIcon: const Icon(Icons.email_outlined),
+                  border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                ),
+              ),
+              SizedBox(height: 2.h),
+
+              // Phone - Only Numbers, Max 10 digits
+              TextField(
+                controller: phoneController,
+                keyboardType: TextInputType.phone,
+                maxLength: 10,
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                ],
+                decoration: const InputDecoration(
+                  labelText: "Phone Number",
+                  hintText: "Enter 10-digit mobile number",
+                  prefixIcon: Icon(Icons.phone_outlined),
+                  counterText: "", // Hide character counter
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                ),
+              ),
+              SizedBox(height: 2.h),
+
+              // Password
+              TextField(
+                controller: passwordController,
+                obscureText: !isPasswordVisible,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  hintText: "Create a password (min 6 characters)",
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  suffixIcon: IconButton(
+                    icon: Icon(isPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off),
+                    onPressed: () =>
+                        setState(() => isPasswordVisible = !isPasswordVisible),
+                  ),
+                  border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                ),
+              ),
+              SizedBox(height: 2.h),
+
+              // Confirm Password
+              TextField(
+                controller: confirmPasswordController,
+                obscureText: !isConfirmPasswordVisible,
+                decoration: InputDecoration(
+                  labelText: "Confirm Password",
+                  hintText: "Confirm your password",
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  suffixIcon: IconButton(
+                    icon: Icon(isConfirmPasswordVisible
+                        ? Icons.visibility
+                        : Icons.visibility_off),
+                    onPressed: () => setState(() =>
+                    isConfirmPasswordVisible = !isConfirmPasswordVisible),
+                  ),
+                  border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12))),
+                ),
+              ),
+
+              SizedBox(height: 1.5.h),
+
+              // Terms & Privacy
+              Row(
+                children: [
+                  Checkbox(
+                    value: agreeTerms,
+                    onChanged: (value) =>
+                        setState(() => agreeTerms = value ?? false),
+                  ),
+                  Expanded(
+                    child: Wrap(
+                      children: [
+                        Text("I agree to the ",
+                            style: TextStyle(fontSize: 11.sp)),
+                        Text("Terms of Service",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11.sp)),
+                        Text(" and ", style: TextStyle(fontSize: 11.sp)),
+                        Text("Privacy Policy",
+                            style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 11.sp)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                       ],
                     ),
                   ),
                 ],
               ),
+<<<<<<< HEAD
               SizedBox(height: 3.5.h),
 
+=======
+              SizedBox(height: 2.h),
+
+              // Create Account Button
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               Obx(() => SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: registerCtrl.isLoading.value ? null : handleRegister,
                   style: ElevatedButton.styleFrom(
+<<<<<<< HEAD
                     backgroundColor: colorScheme.primary,
                     disabledBackgroundColor: colorScheme.onSurface.withOpacity(0.1),
                     padding: EdgeInsets.symmetric(vertical: 2.1.h),
@@ -631,11 +879,26 @@ class _RegisterPageState extends State<RegisterPage> {
                       letterSpacing: 0.3,
                     ),
                   ),
+=======
+                    backgroundColor: Colors.blue,
+                    padding: EdgeInsets.symmetric(vertical: 1.8.h),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                  ),
+                  child: registerCtrl.isLoading.value
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : Text("Create Account",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.sp)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 ),
               )),
 
               SizedBox(height: 3.h),
 
+<<<<<<< HEAD
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -646,10 +909,19 @@ class _RegisterPageState extends State<RegisterPage> {
                       color: colorScheme.onSurface.withOpacity(0.7),
                     ),
                   ),
+=======
+              // Already have account
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Already have an account?",
+                      style: TextStyle(fontSize: 12.sp)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   GestureDetector(
                     onTap: () {
                       Get.off(() => const LoginPage());
                     },
+<<<<<<< HEAD
                     child: Text(
                       "Sign In",
                       style: TextStyle(
@@ -662,12 +934,23 @@ class _RegisterPageState extends State<RegisterPage> {
                 ],
               ),
               SizedBox(height: 4.h),
+=======
+                    child: Text(" Sign In",
+                        style: TextStyle(
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12.sp)),
+                  ),
+                ],
+              ),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             ],
           ),
         ),
       ),
     );
   }
+<<<<<<< HEAD
 
   @override
   void dispose() {
@@ -678,4 +961,6 @@ class _RegisterPageState extends State<RegisterPage> {
     confirmPasswordController.dispose();
     super.dispose();
   }
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 }

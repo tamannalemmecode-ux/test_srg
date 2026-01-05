@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+<<<<<<< HEAD
 import 'package:new_suvarnraj_group/pages/success_animation.dart';
+=======
+import 'package:new_suvarnraj_group/controller/booking_controller.dart';
+import 'package:new_suvarnraj_group/controller/cart_controller.dart';
+import 'package:new_suvarnraj_group/controller/home_page_controller.dart';
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 import 'package:table_calendar/table_calendar.dart';
 import 'package:sizer/sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import '../api/api_service.dart';
+<<<<<<< HEAD
 import '../controller/booking_controller.dart';
 import '../controller/cart_controller.dart';
 import '../controller/user_controller.dart';
 import 'home_page.dart';
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
 class BillingDetailsPage extends StatefulWidget {
   final Map<String, dynamic> billingData;
@@ -28,16 +37,26 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+<<<<<<< HEAD
   final TextEditingController addressController = TextEditingController();
   final TextEditingController apartmentController = TextEditingController();
   final TextEditingController stateController = TextEditingController();
   final TextEditingController pinController = TextEditingController();
+=======
+  final TextEditingController stateController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
+  final TextEditingController secondaryAddressController = TextEditingController();
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   final TextEditingController couponController = TextEditingController();
 
   bool hasCoupon = false;
   double discount = 0.0;
   String appliedCoupon = "";
   String paymentMethod = "cod";
+<<<<<<< HEAD
+=======
+  String? selectedArea;
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   int? selectedCityId;
   String? selectedCityName;
 
@@ -46,18 +65,25 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
   List<Map<String, dynamic>> cities = [];
 
   final List<String> times = ["09:00 AM", "12:00 PM", "03:00 PM", "06:00 PM"];
+<<<<<<< HEAD
 
   late UserController userCtrl;
   late CartController cartCtrl;
   late BookingController bookingCtrl;
+=======
+  final List<String> areas = ["Downtown", "City Center", "Suburbs", "Others"];
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
     userCtrl = Get.find<UserController>();
     cartCtrl = Get.find<CartController>();
     bookingCtrl = Get.find<BookingController>();
 
+=======
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     _loadUserData();
     _fetchCities();
   }
@@ -74,14 +100,21 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
       lastNameController.text = parts.length > 1 ? parts.sublist(1).join(' ') : "";
       emailController.text = email;
       phoneController.text = phone;
+<<<<<<< HEAD
     } catch (e) {
       print('❌ Error loading user data: $e');
+=======
+      setState(() {});
+    } catch (e) {
+      print('Error loading user data: $e');
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     }
   }
 
   Future<void> _fetchCities() async {
     try {
       setState(() => _citiesLoading = true);
+<<<<<<< HEAD
 
       final token = userCtrl.token.value;
       final response = await ApiService.fetchCheckoutData(
@@ -91,6 +124,12 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
       final fetchedCities = response['data']['areas'] as List<dynamic>?;
 
       if (fetchedCities != null) {
+=======
+      final response = await ApiService.fetchCheckoutData();
+
+      if (response['data'] != null && response['data']['cities'] != null) {
+        final fetchedCities = response['data']['cities'] as List<dynamic>;
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         setState(() {
           cities = fetchedCities.map((c) {
             return {
@@ -100,6 +139,7 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
           }).toList();
           _citiesLoading = false;
         });
+<<<<<<< HEAD
       } else {
         setState(() => _citiesLoading = false);
         _showError('No cities available');
@@ -107,6 +147,12 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
     } catch (e) {
       setState(() => _citiesLoading = false);
       _showError('Failed to load cities: ${e.toString()}');
+=======
+      }
+    } catch (e) {
+      print('Error fetching cities: $e');
+      setState(() => _citiesLoading = false);
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     }
   }
 
@@ -116,36 +162,56 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
     lastNameController.dispose();
     emailController.dispose();
     phoneController.dispose();
+<<<<<<< HEAD
     addressController.dispose();
     apartmentController.dispose();
     stateController.dispose();
     pinController.dispose();
+=======
+    stateController.dispose();
+    pinController.dispose();
+    secondaryAddressController.dispose();
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     couponController.dispose();
     super.dispose();
   }
 
+<<<<<<< HEAD
   late ColorScheme _colorScheme;
 
   @override
   Widget build(BuildContext context) {
     _colorScheme = Theme.of(context).colorScheme;
+=======
+  @override
+  Widget build(BuildContext context) {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     final items = widget.billingData["items"] as List<dynamic>;
     final total = (widget.billingData["totalAmount"] as num).toDouble();
     final payable = (total - discount).clamp(0.0, double.infinity);
     final advance = (payable * 0.1).toInt();
 
     return Scaffold(
+<<<<<<< HEAD
       backgroundColor: _colorScheme.background,
+=======
+      backgroundColor: const Color(0xFFF5F7FB),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
             SliverAppBar(
               pinned: true,
+<<<<<<< HEAD
               backgroundColor: _colorScheme.surface,
+=======
+              backgroundColor: Colors.white,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               elevation: 1,
               expandedHeight: 12.h,
               flexibleSpace: FlexibleSpaceBar(
                 titlePadding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+<<<<<<< HEAD
                 title: Center(
                   child: Row(
                     children: [
@@ -168,6 +234,30 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
                   ),
                 ),
                 background: Container(color: _colorScheme.surface),
+=======
+                title: Row(
+                  children: [
+                    FaIcon(FontAwesomeIcons.receipt, size: 18.sp, color: Colors.blue),
+                    SizedBox(width: 2.w),
+                    Expanded(
+                      child: Text("Booking & Billing", style: TextStyle(fontSize: 14.sp, color: Colors.black)),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          hasCoupon = false;
+                          appliedCoupon = "";
+                          discount = 0.0;
+                          couponController.clear();
+                        });
+                        Get.snackbar("Coupon", "Cleared", snackPosition: SnackPosition.BOTTOM);
+                      },
+                      icon: Icon(Icons.refresh, color: Colors.grey, size: 18.sp),
+                    )
+                  ],
+                ),
+                background: Container(color: Colors.white),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
               ),
             ),
             SliverPadding(
@@ -204,8 +294,13 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         children: [
           Row(children: [
             FaIcon(FontAwesomeIcons.calendarAlt, size: 18.sp, color: Colors.purple),
+<<<<<<< HEAD
             SizedBox(width: 3.w),
             Text("Booking Schedule", style: _boldStyle()),
+=======
+            SizedBox(width: 2.w),
+            Text("Booking Schedule", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           ]),
           SizedBox(height: 2.h),
           _calendarDatePicker(),
@@ -223,12 +318,18 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         children: [
           Row(children: [
             FaIcon(FontAwesomeIcons.user, size: 18.sp, color: Colors.teal),
+<<<<<<< HEAD
             SizedBox(width: 3.w),
             Text("Personal Information", style: _boldStyle()),
+=======
+            SizedBox(width: 2.w),
+            Text("Personal Information", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           ]),
           SizedBox(height: 2.h),
           Row(
             children: [
+<<<<<<< HEAD
               Expanded(child: _buildTextField("First Name *", firstNameController, Icons.person)),
               SizedBox(width: 3.w),
               Expanded(child: _buildTextField("Last Name *", lastNameController, null)),
@@ -236,6 +337,19 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
           ),
           SizedBox(height: 2.h),
           _buildTextField("Email *", emailController, Icons.email, TextInputType.emailAddress),
+=======
+              Expanded(
+                child: _buildTextField("First Name *", firstNameController, Icons.person),
+              ),
+              SizedBox(width: 2.w),
+              Expanded(
+                child: _buildTextField("Last Name *", lastNameController, null),
+              ),
+            ],
+          ),
+          SizedBox(height: 2.h),
+          _buildTextField("Email *", emailController, Icons.email, TextInputType.emailAddress, null),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           SizedBox(height: 2.h),
           _buildTextField("Phone *", phoneController, Icons.phone, TextInputType.phone, 10),
         ],
@@ -250,6 +364,7 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         children: [
           Row(children: [
             FaIcon(FontAwesomeIcons.mapMarkedAlt, size: 18.sp, color: Colors.red),
+<<<<<<< HEAD
             SizedBox(width: 3.w),
             Text("Address Details", style: _boldStyle()),
           ]),
@@ -314,6 +429,23 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
                     style: _bodyStyle(),
                     overflow: TextOverflow.ellipsis,
                   ),
+=======
+            SizedBox(width: 2.w),
+            Text("Address Details", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp)),
+          ]),
+          SizedBox(height: 2.h),
+          if (_citiesLoading)
+            SizedBox(height: 5.h, child: Center(child: CircularProgressIndicator()))
+          else if (cities.isEmpty)
+            Text("No cities available", style: TextStyle(color: Colors.red, fontSize: 12.sp))
+          else
+            DropdownButtonFormField<int>(
+              value: selectedCityId,
+              items: cities.map((city) {
+                return DropdownMenuItem<int>(
+                  value: city['id'],
+                  child: Text(city['name'], style: TextStyle(fontSize: 12.sp)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                 );
               }).toList(),
               onChanged: (val) {
@@ -326,6 +458,7 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
                 }
               },
               decoration: InputDecoration(
+<<<<<<< HEAD
                 labelText: "Select City / Area *",
                 labelStyle: _bodyStyle(),
                 prefixIcon: Icon(Icons.location_city, size: 18.sp, color: _colorScheme.onSurface.withOpacity(0.6)),
@@ -348,6 +481,41 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
               Expanded(child: _buildTextField("Pin *", pinController, null, TextInputType.number, 6)),
             ],
           ),
+=======
+                labelText: "City *",
+                prefixIcon: Icon(Icons.location_city, size: 18.sp),
+                contentPadding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 2.w),
+                labelStyle: TextStyle(fontSize: 12.sp),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(2.w)),
+              ),
+            ),
+          SizedBox(height: 2.h),
+          _buildTextField("State *", stateController, null),
+          SizedBox(height: 2.h),
+          Row(
+            children: [
+              Expanded(
+                child: _buildTextField("Pin *", pinController, null, TextInputType.number, 6),
+              ),
+              SizedBox(width: 2.w),
+              Expanded(
+                child: DropdownButtonFormField<String>(
+                  value: selectedArea,
+                  items: areas.map((a) => DropdownMenuItem(value: a, child: Text(a, style: TextStyle(fontSize: 12.sp)))).toList(),
+                  onChanged: (val) => setState(() => selectedArea = val),
+                  decoration: InputDecoration(
+                    labelText: "Area *",
+                    contentPadding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 2.w),
+                    labelStyle: TextStyle(fontSize: 12.sp),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(2.w)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 2.h),
+          _buildTextField("Secondary Address", secondaryAddressController, Icons.home_outlined, TextInputType.text, null, 2),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         ],
       ),
     );
@@ -360,8 +528,13 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         children: [
           Row(children: [
             FaIcon(FontAwesomeIcons.tag, size: 18.sp, color: Colors.indigo),
+<<<<<<< HEAD
             SizedBox(width: 3.w),
             Text("Discount Coupon", style: _boldStyle()),
+=======
+            SizedBox(width: 2.w),
+            Text("Discount Coupon", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           ]),
           SizedBox(height: 1.h),
           CheckboxListTile(
@@ -376,14 +549,21 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
                 }
               });
             },
+<<<<<<< HEAD
             title: Text("I have a discount coupon", style: _bodyStyle()),
             controlAffinity: ListTileControlAffinity.leading,
             contentPadding: EdgeInsets.zero,
             activeColor: _colorScheme.primary,
+=======
+            title: Text("I have a discount coupon", style: TextStyle(fontSize: 12.sp)),
+            controlAffinity: ListTileControlAffinity.leading,
+            contentPadding: EdgeInsets.zero,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           ),
           if (hasCoupon)
             Row(
               children: [
+<<<<<<< HEAD
                 Expanded(child: _buildTextField("Coupon Code", couponController, null)),
                 SizedBox(width: 3.w),
                 ElevatedButton.icon(
@@ -393,6 +573,19 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _colorScheme.primary,
                     padding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 4.w),
+=======
+                Expanded(
+                  child: _buildTextField("Coupon Code", couponController, null),
+                ),
+                SizedBox(width: 2.w),
+                ElevatedButton.icon(
+                  icon: FaIcon(FontAwesomeIcons.check, size: 14.sp, color: Colors.white),
+                  label: Text("Apply", style: TextStyle(fontSize: 12.sp, color: Colors.white)),
+                  onPressed: () => _applyCoupon(total),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blue,
+                    padding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 3.w),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
                   ),
                 ),
               ],
@@ -400,10 +593,15 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
           if (appliedCoupon.isNotEmpty)
             Padding(
               padding: EdgeInsets.only(top: 1.h),
+<<<<<<< HEAD
               child: Text(
                 "Applied: $appliedCoupon - Saved ₹${discount.toStringAsFixed(0)}",
                 style: TextStyle(color: _colorScheme.secondary, fontSize: 15.sp, fontWeight: FontWeight.bold),
               ),
+=======
+              child: Text("Applied: $appliedCoupon - Saved ₹${discount.toStringAsFixed(0)}",
+                  style: TextStyle(color: Colors.green, fontSize: 12.sp, fontWeight: FontWeight.bold)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             ),
         ],
       ),
@@ -417,6 +615,7 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         children: [
           Row(children: [
             FaIcon(FontAwesomeIcons.shoppingCart, size: 18.sp, color: Colors.orange),
+<<<<<<< HEAD
             SizedBox(width: 3.w),
             Text("Order Summary", style: _boldStyle()),
           ]),
@@ -446,6 +645,32 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
             "Advance (10%): ₹$advance",
             style: TextStyle(color: _colorScheme.secondary, fontSize: 15.sp, fontWeight: FontWeight.bold),
           ),
+=======
+            SizedBox(width: 2.w),
+            Text("Order Summary", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp)),
+          ]),
+          SizedBox(height: 2.h),
+          ...items.map((item) => Padding(
+            padding: EdgeInsets.symmetric(vertical: 0.5.h),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text("${item['title']} × ${item['quantity']}", style: TextStyle(fontSize: 12.sp)),
+                ),
+                Text("₹${(item['price'] * item['quantity']).toStringAsFixed(0)}",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp)),
+              ],
+            ),
+          )),
+          Divider(thickness: 0.2.h),
+          _summaryRow("Subtotal", "₹${total.toStringAsFixed(0)}"),
+          _summaryRow("Discount", "- ₹${discount.toStringAsFixed(0)}"),
+          _summaryRow("Commuting Charge", "₹0"),
+          Divider(thickness: 0.2.h),
+          _summaryRowBold("Final Amount", "₹${payable.toStringAsFixed(0)}"),
+          SizedBox(height: 1.h),
+          Text("Advance (10%): ₹$advance", style: TextStyle(color: Colors.green[700], fontSize: 12.sp, fontWeight: FontWeight.bold)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         ],
       ),
     );
@@ -458,14 +683,20 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         children: [
           Row(children: [
             FaIcon(FontAwesomeIcons.moneyCheckAlt, size: 18.sp, color: Colors.brown),
+<<<<<<< HEAD
             SizedBox(width: 3.w),
             Text("Payment Method", style: _boldStyle()),
+=======
+            SizedBox(width: 2.w),
+            Text("Payment Method", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12.sp)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           ]),
           SizedBox(height: 1.h),
           RadioListTile<String>(
             value: "cod",
             groupValue: paymentMethod,
             onChanged: (val) => setState(() => paymentMethod = val ?? "cod"),
+<<<<<<< HEAD
             title: Text("Cash on Delivery (COD)", style: _bodyStyle()),
             secondary: FaIcon(FontAwesomeIcons.moneyBillWave, size: 16.sp),
             contentPadding: EdgeInsets.zero,
@@ -480,6 +711,20 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
           //   contentPadding: EdgeInsets.zero,
           //   activeColor: _colorScheme.primary,
           // ),
+=======
+            title: Text("Cash on Delivery (COD)", style: TextStyle(fontSize: 12.sp)),
+            secondary: FaIcon(FontAwesomeIcons.moneyBillWave, size: 16.sp),
+            contentPadding: EdgeInsets.zero,
+          ),
+          RadioListTile<String>(
+            value: "advance",
+            groupValue: paymentMethod,
+            onChanged: (val) => setState(() => paymentMethod = val ?? "advance"),
+            title: Text("Pay 10% Advance", style: TextStyle(fontSize: 12.sp)),
+            secondary: FaIcon(FontAwesomeIcons.handHoldingUsd, size: 16.sp),
+            contentPadding: EdgeInsets.zero,
+          ),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         ],
       ),
     );
@@ -490,6 +735,7 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+<<<<<<< HEAD
           backgroundColor: _colorScheme.primary,
           padding: EdgeInsets.symmetric(vertical: 2.h),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.w)),
@@ -499,6 +745,15 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
           _isProcessing ? "Processing..." : "Confirm Booking • ₹${payable.toStringAsFixed(0)}",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.sp, color: _colorScheme.onPrimary),
         ),
+=======
+          backgroundColor: Colors.green,
+          padding: EdgeInsets.symmetric(vertical: 1.8.h),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2.w)),
+        ),
+        onPressed: _isProcessing ? null : () => _placeOrder(payable),
+        child: Text("Confirm Booking • ₹${payable.toStringAsFixed(0)}",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, color: Colors.white)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       ),
     );
   }
@@ -518,6 +773,7 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
       maxLines: maxLines,
       decoration: InputDecoration(
         labelText: label,
+<<<<<<< HEAD
         labelStyle: _bodyStyle(),
         prefixIcon: icon != null ? Icon(icon, size: 18.sp, color: _colorScheme.onSurface.withOpacity(0.6)) : null,
         contentPadding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 2.w),
@@ -535,13 +791,26 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         fillColor: _colorScheme.surface,
       ),
       style: _bodyStyle(),
+=======
+        prefixIcon: icon != null ? Icon(icon, size: 18.sp) : null,
+        contentPadding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 2.w),
+        labelStyle: TextStyle(fontSize: 12.sp),
+        counterText: "",
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(2.w)),
+      ),
+      style: TextStyle(fontSize: 12.sp),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     );
   }
 
   Widget _fancyCard({required Widget child}) {
     return Container(
       decoration: BoxDecoration(
+<<<<<<< HEAD
         color: _colorScheme.surface,
+=======
+        color: Colors.white,
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         borderRadius: BorderRadius.circular(2.w),
         boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 4.sp, offset: Offset(0, 2.sp))],
       ),
@@ -552,6 +821,7 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
 
   Widget _summaryRow(String label, String value) {
     return Padding(
+<<<<<<< HEAD
       padding: EdgeInsets.symmetric(vertical: 0.6.h),
       child: Row(
         children: [
@@ -559,11 +829,19 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
           Text(value, style: _bodyStyle().copyWith(fontWeight: FontWeight.w500)),
         ],
       ),
+=======
+      padding: EdgeInsets.symmetric(vertical: 0.5.h),
+      child: Row(children: [
+        Expanded(child: Text(label, style: TextStyle(fontSize: 12.sp))),
+        Text(value, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12.sp)),
+      ]),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     );
   }
 
   Widget _summaryRowBold(String label, String value) {
     return Padding(
+<<<<<<< HEAD
       padding: EdgeInsets.symmetric(vertical: 0.6.h),
       child: Row(
         children: [
@@ -623,11 +901,75 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         SizedBox(height: 1.h),
       ],
     );
+=======
+      padding: EdgeInsets.symmetric(vertical: 0.5.h),
+      child: Row(children: [
+        Expanded(child: Text(label, style: TextStyle(fontSize: 12.sp))),
+        Text(value, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13.sp, color: Colors.blue)),
+      ]),
+    );
+  }
+
+  Widget _calendarDatePicker() {
+    try {
+      final bookingController = Get.find<BookingController>();
+      return Column(
+        children: [
+          Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.blue.shade50, Colors.white],
+              ),
+              borderRadius: BorderRadius.circular(2.w),
+              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 4.sp, offset: Offset(0, 2.sp))],
+            ),
+            padding: EdgeInsets.all(3.w),
+            child: TableCalendar(
+              firstDay: DateTime.now(),
+              lastDay: DateTime(DateTime.now().year + 2),
+              focusedDay: bookingDate ?? DateTime.now(),
+              selectedDayPredicate: (day) => bookingDate != null && isSameDay(bookingDate, day),
+              onDaySelected: (selectedDay, focusedDay) {
+                if (bookingController.isDateFull(selectedDay)) {
+                  _showError("This date is already full");
+                } else {
+                  setState(() => bookingDate = selectedDay);
+                }
+              },
+              headerStyle: HeaderStyle(
+                formatButtonVisible: false,
+                titleCentered: true,
+                titleTextStyle: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold, color: Colors.blueGrey[900]),
+              ),
+              calendarStyle: CalendarStyle(
+                selectedDecoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(colors: [Color(0xFF42A5F5), Color(0xFF1E88E5)]),
+                ),
+                todayDecoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.blue.shade50,
+                  border: Border.all(color: Colors.blue.shade300),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 1.h),
+        ],
+      );
+    } catch (e) {
+      return Text("Error loading calendar: $e");
+    }
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   }
 
   Widget _timeDropdown() {
     return DropdownButtonFormField<String>(
       value: bookingTime,
+<<<<<<< HEAD
       items: times.map((t) => DropdownMenuItem(value: t, child: Text(t, style: _bodyStyle()))).toList(),
       onChanged: (val) => setState(() => bookingTime = val),
       decoration: InputDecoration(
@@ -638,6 +980,16 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(2.w)),
         filled: true,
         fillColor: _colorScheme.surface,
+=======
+      items: times.map((t) => DropdownMenuItem(value: t, child: Text(t, style: TextStyle(fontSize: 12.sp)))).toList(),
+      onChanged: (val) => setState(() => bookingTime = val),
+      decoration: InputDecoration(
+        labelText: "Select Time *",
+        prefixIcon: Icon(Icons.access_time, size: 18.sp),
+        contentPadding: EdgeInsets.symmetric(vertical: 1.5.h, horizontal: 2.w),
+        labelStyle: TextStyle(fontSize: 12.sp),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(2.w)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       ),
     );
   }
@@ -656,6 +1008,7 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         appliedCoupon = enteredCode;
         discount = total * coupons[enteredCode]!;
       });
+<<<<<<< HEAD
       Get.snackbar(
         "Success",
         "Coupon applied! Saved ₹${discount.toStringAsFixed(0)}",
@@ -664,6 +1017,10 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         colorText: _colorScheme.secondary,
         duration: Duration(seconds: 3),
       );
+=======
+      Get.snackbar("Success", "Coupon applied! Saved ₹${discount.toStringAsFixed(0)}",
+          snackPosition: SnackPosition.BOTTOM, backgroundColor: Colors.green.shade100);
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     } else {
       setState(() {
         appliedCoupon = "";
@@ -673,12 +1030,17 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
     }
   }
 
+<<<<<<< HEAD
   // ✅ UPDATED: Robust 400 error handling for duplicate booking
   void _placeOrder(double payable) async {
+=======
+  void _placeOrder(double total) async {
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     if (_isProcessing) return;
 
     if (!_validateForm()) return;
 
+<<<<<<< HEAD
     final address = addressController.text.trim();
     if (address.length < 10) {
       _showError("Address must be at least 10 characters long.");
@@ -699,6 +1061,24 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
       final items = widget.billingData["items"] as List<dynamic>;
       final List<Map<String, dynamic>> apiItems = [];
       for (var item in items) {
+=======
+    try {
+      setState(() => _isProcessing = true);
+      Get.dialog(Center(child: CircularProgressIndicator(strokeWidth: 3)), barrierDismissible: false);
+
+      final timeOnly = bookingTime!.split(' ')[0];
+      final formattedDate = DateFormat('yyyy-MM-dd').format(bookingDate!);
+      final items = widget.billingData["items"] as List<dynamic>;
+      final List<Map<String, dynamic>> apiItems = [];
+
+      for (var item in items) {
+        if (item['id'] == null) {
+          Get.back();
+          _showError("Product ID missing");
+          setState(() => _isProcessing = false);
+          return;
+        }
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         apiItems.add({
           "product_id": item['id'],
           "qty": item['quantity'],
@@ -706,13 +1086,18 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         });
       }
 
+<<<<<<< HEAD
       final response = userCtrl.isLoggedIn.value && userCtrl.token.value.isNotEmpty
           ? await ApiService.placeOrder(
         token: userCtrl.token.value,
+=======
+      final response = await ApiService.placeGuestOrder(
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         firstName: firstNameController.text.trim(),
         lastName: lastNameController.text.trim(),
         email: emailController.text.trim(),
         mobile: phoneController.text.trim(),
+<<<<<<< HEAD
         address: address,
         apartment: apartmentController.text.trim(),
         state: stateController.text.trim(),
@@ -737,10 +1122,23 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         zip: pinController.text.trim(),
         bookingDate: formattedDate,
         bookingTime: timeOnly,
+=======
+        address: stateController.text.trim(),
+        apartment: secondaryAddressController.text.trim().isNotEmpty ? secondaryAddressController.text.trim() : null,
+        state: stateController.text.trim(),
+        cityId: selectedCityId!,
+        zip: pinController.text.trim(),
+        notes: "Booked via mobile app",
+        countryId: 1,
+        bookingDate: formattedDate,
+        bookingTime: timeOnly,
+        bookingType: "standard",
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
         paymentMethod: paymentMethod,
         items: apiItems,
       );
 
+<<<<<<< HEAD
       final String responseText = response.toString().toLowerCase();
       if (responseText.contains('400') ||
           responseText.contains('already booked') ||
@@ -801,6 +1199,18 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
         return;
       }
 
+=======
+      Get.back();
+
+      final orderId = response['data']['order_id'] ?? 'N/A';
+      Get.find<CartController>().clearCart();
+      await Get.find<BookingController>().fetchBookings();
+
+      _showSuccessDialog(orderId);
+    } catch (e) {
+      Get.back();
+      String errorMsg = e.toString().replaceAll('Exception: ', '');
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
       _showError(errorMsg);
     } finally {
       setState(() => _isProcessing = false);
@@ -814,10 +1224,17 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
     if (lastNameController.text.trim().isEmpty) return _showErrorBool("Enter last name");
     if (emailController.text.trim().isEmpty) return _showErrorBool("Enter email");
     if (phoneController.text.trim().isEmpty) return _showErrorBool("Enter phone");
+<<<<<<< HEAD
     if (addressController.text.trim().isEmpty) return _showErrorBool("Enter address");
     if (stateController.text.trim().isEmpty) return _showErrorBool("Enter state");
     if (pinController.text.trim().isEmpty) return _showErrorBool("Enter pin");
     if (selectedCityId == null) return _showErrorBool("Select city");
+=======
+    if (stateController.text.trim().isEmpty) return _showErrorBool("Enter state");
+    if (pinController.text.trim().isEmpty) return _showErrorBool("Enter pin");
+    if (selectedCityId == null) return _showErrorBool("Select city");
+    if (selectedArea == null) return _showErrorBool("Select area");
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
     if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(emailController.text.trim())) {
       return _showErrorBool("Invalid email");
@@ -840,6 +1257,7 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
   }
 
   void _showError(String message) {
+<<<<<<< HEAD
     Get.snackbar(
       "Error",
       message,
@@ -848,6 +1266,13 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
       colorText: _colorScheme.error,
       duration: Duration(seconds: 3),
     );
+=======
+    Get.snackbar("Error", message,
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.shade100,
+        colorText: Colors.red[900],
+        duration: Duration(seconds: 3));
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   }
 
   void _showSuccessDialog(String orderId) {
@@ -857,15 +1282,24 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
       builder: (ctx) => Center(
         child: Container(
           decoration: BoxDecoration(
+<<<<<<< HEAD
             color: _colorScheme.surface,
             borderRadius: BorderRadius.circular(16),
             boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 8)],
           ),
           padding: EdgeInsets.all(24),
+=======
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(4.w),
+            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 8.sp)],
+          ),
+          padding: EdgeInsets.all(6.w),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
+<<<<<<< HEAD
                 decoration: BoxDecoration(color: _colorScheme.primary, shape: BoxShape.circle),
                 padding: EdgeInsets.all(12),
                 child: Icon(Icons.check, color: _colorScheme.onPrimary, size: 30),
@@ -889,10 +1323,31 @@ class _BillingDetailsPageState extends State<BillingDetailsPage> {
                 style: ElevatedButton.styleFrom(backgroundColor: _colorScheme.primary),
                 child: Text("Go to Home", style: TextStyle(color: _colorScheme.onPrimary)),
               )
+=======
+                decoration: const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
+                padding: EdgeInsets.all(3.w),
+                child: Icon(Icons.check, color: Colors.white, size: 30.sp),
+              ),
+              SizedBox(height: 2.h),
+              Text("Order Placed Successfully! ✅",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.green[700]),
+              ),
+              SizedBox(height: 1.h),
+              Text("Order ID: $orderId", style: TextStyle(fontSize: 11.sp, color: Colors.grey)),
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
             ],
           ),
         ),
       ),
     );
+<<<<<<< HEAD
+=======
+
+    Future.delayed(Duration(seconds: 3), () {
+      if (context.mounted) Navigator.of(context).pop();
+      Get.find<HomePageController>().changeTab(2);
+    });
+>>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
   }
 }
