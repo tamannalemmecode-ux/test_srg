@@ -1,19 +1,11 @@
-<<<<<<< HEAD
-// lib/controller/cart_controller.dart
-=======
-// ✅ lib/controller/cart_controller.dart - COMPLETE FIXED VERSION
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-<<<<<<< HEAD
 import 'package:new_suvarnraj_group/controller/user_controller.dart';
 import '../api/api_service.dart';
-=======
 import 'package:new_suvarnraj_group/api/api_service.dart';
 import 'package:new_suvarnraj_group/controller/user_controller.dart';
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
 class CartController extends GetxController {
   final RxList<Map<String, dynamic>> cartItems = <Map<String, dynamic>>[].obs;
@@ -28,7 +20,6 @@ class CartController extends GetxController {
   void onInit() {
     super.onInit();
     userCtrl = Get.find<UserController>();
-<<<<<<< HEAD
 
     if (userCtrl.isLoggedIn.value) {
       final token = userCtrl.token.value;
@@ -46,7 +37,6 @@ class CartController extends GetxController {
         }
       }
       clearLocalCart();
-=======
     if (userCtrl.isLoggedIn.value && userCtrl.token.value.isNotEmpty) {
       loadCart();
     }
@@ -56,7 +46,6 @@ class CartController extends GetxController {
       } else {
         clearLocalCart();
       }
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
     });
   }
 

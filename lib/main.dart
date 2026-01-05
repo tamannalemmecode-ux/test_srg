@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
+
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Suvarnraj Group',
@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
             return widget!;
           },
         );
-=======
+
     return GetMaterialApp( // ✅ MUST be GetMaterialApp
       debugShowCheckedModeBanner: false,
       title: 'Suvarnraj Group',
@@ -86,8 +86,3 @@ class MyApp extends StatelessWidget {
         return Sizer(builder: (context, orientation, deviceType) {
           return widget!;
         });
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
-      },
-    );
-  }
-}

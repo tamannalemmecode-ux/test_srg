@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-// lib/services/api_service.dart - FULLY CORRECTED FOR CITY & ADDRESS VALIDATION
-=======
-// lib/services/api_service.dart - COMPLETE WORKING VERSION (FINAL)
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
+<220c49ced75b7dc111a935bc38
 
 import 'dart:convert';
 import 'dart:io';

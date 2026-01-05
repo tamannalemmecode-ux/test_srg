@@ -1,22 +1,16 @@
-<<<<<<< HEAD
-// lib/controller/booking_controller.dart
-=======
-// lib/controller/booking_controller.dart - COMPLETE FIXED VERSION
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-<<<<<<< HEAD
+
 import '../api/api_service.dart';
 import '../controller/user_controller.dart';
 import '../models/booking_model.dart';
-=======
+
 import 'package:new_suvarnraj_group/api/api_service.dart';
 import 'package:new_suvarnraj_group/controller/user_controller.dart';
 import 'package:new_suvarnraj_group/models/booking_model.dart';
 import 'package:table_calendar/table_calendar.dart';
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
 class BookingController extends GetxController {
   final RxList<BookingModel> bookings = <BookingModel>[].obs;
@@ -24,12 +18,11 @@ class BookingController extends GetxController {
   final RxString errorMessage = ''.obs;
   bool _isFetching = false;
 
-<<<<<<< HEAD
-=======
+
   // ✅ FOR CALENDAR FULL DATE CHECK
   final Set<DateTime> _fullDates = <DateTime>{}.obs;
 
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
+
   late UserController userCtrl;
 
   @override
@@ -50,9 +43,7 @@ class BookingController extends GetxController {
     });
   }
 
-<<<<<<< HEAD
-  /// ✅ FETCH BOOKINGS FROM API
-=======
+
   /// ✅ CHECK IF DATE IS FULL (FOR CALENDAR)
   bool isDateFull(DateTime date) {
     return _fullDates.any((d) => isSameDay(d, date));
@@ -64,7 +55,7 @@ class BookingController extends GetxController {
   }
 
   /// ✅ FETCH BOOKINGS FROM API - FULLY FIXED
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
+
   Future<void> fetchBookings() async {
     if (_isFetching) {
       if (kDebugMode) print("⚠️ Already fetching bookings, skipping...");
@@ -96,7 +87,7 @@ class BookingController extends GetxController {
         print("   Data Type: ${response['data'].runtimeType}");
       }
 
-<<<<<<< HEAD
+
       // ✅ Handle both LIST and MAP responses
       List<dynamic> bookingList = [];
 
@@ -119,7 +110,7 @@ class BookingController extends GetxController {
         } else if (dataMap.containsKey('data')) {
           bookingList = dataMap['data'] as List<dynamic>;
           if (kDebugMode) print("   Found nested 'data' key");
-=======
+
       // ✅ HANDLE BOTH LIST AND MAP RESPONSES
       List<dynamic> bookingList = [];
 
@@ -154,7 +145,7 @@ class BookingController extends GetxController {
               break;
             }
           }
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
+
         }
       }
 
@@ -188,10 +179,9 @@ class BookingController extends GetxController {
         print("   Error type: ${e.runtimeType}");
       }
 
-<<<<<<< HEAD
-=======
+
       // ✅ FIXED: Only show snackbar if one isn't already open
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
+
       if (!Get.isSnackbarOpen) {
         Get.snackbar(
           "Error",
@@ -256,8 +246,7 @@ class BookingController extends GetxController {
     }
   }
 
-<<<<<<< HEAD
-=======
+
   /// ✅ RESCHEDULE BOOKING
   Future<bool> rescheduleBooking(int orderId, DateTime newDateTime) async {
     try {
@@ -314,17 +303,16 @@ class BookingController extends GetxController {
     }
   }
 
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
+
   /// ✅ CLEAR DATA
   void clearData() {
     bookings.clear();
     errorMessage.value = '';
     isLoading.value = false;
     _isFetching = false;
-<<<<<<< HEAD
-=======
+
     _fullDates.clear();
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
+
     if (kDebugMode) print("🧹 Booking data cleared");
   }
 
@@ -344,7 +332,7 @@ class BookingController extends GetxController {
     await fetchBookings();
   }
 
-<<<<<<< HEAD
+
   // ✅ GETTERS (Fixed to match exact status strings)
   int get totalBookings => bookings.length;
 
@@ -356,7 +344,7 @@ class BookingController extends GetxController {
 
   int get cancelledCount =>
       bookings.where((b) => b.status == "Cancelled").length;
-=======
+
   // ✅ GETTERS FOR STATS
   int get totalBookings => bookings.length;
 
@@ -369,12 +357,11 @@ class BookingController extends GetxController {
 
   int get cancelledCount =>
       bookings.where((b) => b.status.toLowerCase() == 'cancelled').length;
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
 
   double get totalRevenue =>
       bookings.fold(0.0, (sum, b) => sum + b.price);
 
-<<<<<<< HEAD
+
   bool get hasBookings => bookings.isNotEmpty;
   bool get hasError => errorMessage.value.isNotEmpty;
 
@@ -386,7 +373,7 @@ class BookingController extends GetxController {
 
   List<BookingModel> get cancelledBookings =>
       bookings.where((b) => b.status == "Cancelled").toList();
-=======
+
   List<BookingModel> get upcomingBookings =>
       bookings.where((b) => b.status.toLowerCase() == 'confirmed' ||
           b.status.toLowerCase() == 'pending').toList();
@@ -402,5 +389,5 @@ class BookingController extends GetxController {
 
   /// ✅ CHECK IF HAS ERROR
   bool get hasError => errorMessage.value.isNotEmpty;
->>>>>>> 6e34eaa52e8c86220c49ced75b7dc111a935bc38
+
 }
